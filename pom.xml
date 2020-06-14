@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>niubaide_web</module>
         <module>niubaide_backend</module>
     </modules>
 

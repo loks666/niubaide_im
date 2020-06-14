@@ -1,6 +1,6 @@
 package com.niubaide.im.service.impl;
 
-import com.niubaide.im.mapper.TbUserMapper;
+import com.niubaide.im.mapper.UserMapper;
 import com.niubaide.im.pojo.TbUser;
 import com.niubaide.im.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private TbUserMapper userMapper;
+    private UserMapper userMapper;
 
     @Override
     public List<TbUser> getAllUser() {
