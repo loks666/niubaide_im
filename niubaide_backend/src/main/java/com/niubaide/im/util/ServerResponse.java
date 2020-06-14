@@ -1,4 +1,4 @@
-package com.niubaide.im.common;
+package com.niubaide.im.util;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -72,7 +72,7 @@ public class ServerResponse<T> implements Serializable {
         return new ServerResponse<T>(ResponseCode.SUCCESS.getCode());
     }
 
-    public static <T> ServerResponse<T> successMessage(String msg) {
+    public static <T> ServerResponse<T> success(String msg) {
         return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), msg);
     }
 
@@ -89,11 +89,11 @@ public class ServerResponse<T> implements Serializable {
         return new ServerResponse<T>(ResponseCode.ERROR.getCode(), ResponseCode.ERROR.getDesc());
     }
 
-    public static <T> ServerResponse<T> errorMessage(String errorMessage) {
+    public static <T> ServerResponse<T> error(String errorMessage) {
         return new ServerResponse<T>(ResponseCode.ERROR.getCode(), errorMessage);
     }
 
-    public static <T> ServerResponse<T> errorCodeMessage(int errorCode, String errorMessage) {
+    public static <T> ServerResponse<T> error(int errorCode, String errorMessage) {
         return new ServerResponse<T>(errorCode, errorMessage);
     }
 }

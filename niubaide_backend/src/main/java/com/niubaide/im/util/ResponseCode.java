@@ -1,4 +1,4 @@
-package com.niubaide.im.common;
+package com.niubaide.im.util;
 
 public enum ResponseCode {
     SUCCESS(200, "SUCCESS"),
@@ -8,6 +8,7 @@ public enum ResponseCode {
 
     private final int code;
     private final String desc;
+
 
     ResponseCode(int code, String desc) {
         this.code = code;
