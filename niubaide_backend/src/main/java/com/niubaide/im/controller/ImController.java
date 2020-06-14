@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
+@RequestMapping("/user")
 public class ImController {
 
     @Autowired

@@ -40,6 +40,6 @@ public class UserServiceImpl implements UserService {
                 BeanUtils.copyProperties(tbUser,user);
                 return user;
             }
-            throw new NullPointerException("结果中没有该用户");
+            throw new NullPointerException("没有该用户，请检查");
     }
 }
