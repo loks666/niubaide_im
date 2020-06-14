@@ -15,7 +15,7 @@ public class NettyListener implements ApplicationListener<ContextRefreshedEvent>
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if(event.getApplicationContext().getParent() == null) {
             try {
-                websocketServer.start();
+                new Thread(websocketServer).start();
             } catch (Exception e) {
                 e.printStackTrace();
             }

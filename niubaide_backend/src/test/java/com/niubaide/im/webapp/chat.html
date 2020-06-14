@@ -17,7 +17,7 @@
 
         // 判断当前浏览器是否支持websocket
         if(window.WebSocket) {
-            websocket = new WebSocket("ws://localhost:5001");
+            websocket = new WebSocket("ws://localhost:5001/ws");
 
             websocket.onopen = function() {
                 console.log("建立连接.");

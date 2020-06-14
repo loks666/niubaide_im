@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WebSocketServer {
+public class WebSocketServer implements Runnable{
 
     private EventLoopGroup bossGroup;       // 主线程池
     private EventLoopGroup workerGroup;     // 工作线程池
@@ -18,12 +18,8 @@ public class WebSocketServer {
     @Value("${websocket.port}")
     private int port;
 
-    public void start() {
-        future = server.bind(port);
-        System.err.println("netty server - " + port + " 启动成功");
-    }
-
-    public WebSocketServer() {
+    @Override
+    public void run() {
         bossGroup = new NioEventLoopGroup();
         workerGroup = new NioEventLoopGroup();
 
@@ -31,5 +27,7 @@ public class WebSocketServer {
         server.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
                 .childHandler(new WebsocketInitializer());
+        future = server.bind(port);
+        System.err.println("netty server - " + port + " 启动成功");
     }
 }
