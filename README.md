@@ -27,6 +27,8 @@
 2.  新建 Feat_xxx 分支
 3.  提交代码
 4.  新建 Pull Request
+nox_adb connect 127.0.0.1:62001
+nox_adb devices
 
 
 #### 码云特技
