@@ -1,9 +1,9 @@
 
 window.config = {
 	// 服务器地址
-	SERVER_URL: 'http://192.168.1.106:9000',
+	SERVER_URL: 'http://10.200.11.36:8080',
 	// NETTY地址
-	WS_URL: 'ws://192.168.1.106:9001/ws',
+	WS_URL: 'ws://10.200.11.36:5001/ws',
 	// 默认小头像路径名
 	DEFAULT_PIC_IMG: "/image/default_user_pic.png",
 	// 默认大头像路径名
@@ -39,10 +39,11 @@ window.util = {
 	 * @param {Object} callback 回调函数
 	 */
 	ajax: function(url, data, callback) {
+		console.log(11)
 		if(data == undefined || data == null) {
 			data = {};
 		}
-		
+		console.log(config.SERVER_URL + url)//我debug就是到这
 		mui.ajax(config.SERVER_URL + url, {
 			data: data,
 			dataType: 'json',
@@ -56,6 +57,9 @@ window.util = {
 				if(callback != undefined && callback != null) {
 					callback(res);
 				}
+			},
+			error:function(p1,p2,p3){
+				console.log(p2)
 			}
 		});
 	},	

@@ -16,7 +16,10 @@
 			"register.html",
 			"login.html"
 		],
-		"resources": []
+		"resources": [
+			"login.html",
+			"fonts/mui.ttf"
+		]
 	},
 	"login.html": {
 		"refer": [

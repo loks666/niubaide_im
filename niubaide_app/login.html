@@ -16,10 +16,10 @@
 			<div style="height: 80px;"></div>
 			<form class="mui-input-group" id="form">
 				<div class="mui-input-row">
-					<input type="text" class="mui-input-clear" placeholder="用户名" id="username" style="font-size: 18px;">
+					<input type="text" class="mui-input-clear" value="11111" placeholder="用户名" id="username" style="font-size: 18px;">
 				</div>
 				<div class="mui-input-row" style="margin-top: 10px;">
-					<input type="password" class="mui-input-clear" placeholder="密码" id="password" style="font-size: 18px;">
+					<input type="password" class="mui-input-clear" value="2222" placeholder="密码" id="password" style="font-size: 18px;">
 				</div>
 				<div class="mui-content-padded" align="center" style="margin-top: 10px;">
 					<button type="submit" class="mui-btn mui-btn-blue" id="login" style="width: 100%;margin-bottom: 5px;">登陆</button>
@@ -43,7 +43,7 @@
 				input_username = document.getElementById("username");
 				input_password = document.getElementById("password");
 				form_login = document.getElementById("form");
-				
+
 				// 禁用回退按钮
 				mui.back = function() {
 					return false;
@@ -69,19 +69,20 @@
 			}
 			
 			function doSumit() {
+				console.log(1)
 				// 判断输入是否为空，为空获取焦点
 				if(util.isEmpty(input_username.value)) {
 					input_username.focus();
 					mui.toast("请输入用户名");
 					return false;
 				}
-
+				console.log(2)
 				if(util.isEmpty(input_password.value)) {
 					input_password.focus();
 					mui.toast("请输入密码");
 					return false;
 				}
-				
+				console.log(util)
 				util.ajax("/user/login", {
 					username: input_username.value,
 					password: input_password.value

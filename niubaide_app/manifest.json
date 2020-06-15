@@ -196,10 +196,12 @@
 				"priority": 0
 			},
 			"register.html": {
-				"resources": [],
+				"resources": [
+					"login.html",
+					"fonts/mui.ttf"
+				],
 				"refer": [
-					"register.html",
-					"login.html"
+					"register.html"
 				],
 				"priority": 0
 			},
