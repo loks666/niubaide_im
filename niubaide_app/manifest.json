@@ -186,7 +186,8 @@
 			"index.html": {
 				"resources": [
 					"main_hchat.html",
-					"main_me.html"
+					"main_me.html",
+					"fonts/mui.ttf"
 				],
 				"refer": [
 					"main_contact.html",
@@ -220,7 +221,10 @@
 				"priority": 0
 			},
 			"main_me.html": {
-				"resources": [],
+				"resources": [
+					"image/qrcode.png",
+					"image/default_user_pic.png"
+				],
 				"refer": [
 					"me_photo.html",
 					"me_nickname.html",
@@ -244,7 +248,10 @@
 				"priority": 0
 			},
 			"main_discover.html": {
-				"resources": [],
+				"resources": [
+					"image/add_friend.png",
+					"image/saoyisao.png"
+				],
 				"refer": [
 					"search_friend.html",
 					"scan.html"
@@ -259,7 +266,11 @@
 				"priority": 0
 			},
 			"main_contact.html": {
-				"resources": [],
+				"resources": [
+					"js/hanzi_pinyin.js",
+					"css/mui.indexedlist.css",
+					"js/mui.indexedlist.js"
+				],
 				"refer": [
 					"chat.html"
 				],

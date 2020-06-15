@@ -16,16 +16,22 @@ import java.io.Serializable;
 public class ServerResponse<T> implements Serializable {
 
     private int status;
-    private String msg;
+    private boolean success;
+    private String message;
     private T data;
 
     private ServerResponse(int status) {
         this.status = status;
     }
 
-    private ServerResponse(int status, String msg) {
+    private ServerResponse(ResponseCode code) {
+        this.success = false;
+        this.message = new StringBuilder(code.getCode()).append(":").append(code.getDesc()).toString();
+    }
+
+    private ServerResponse(int status, String message) {
         this.status = status;
-        this.msg = msg;
+        this.message = message;
     }
 
     //  这里存在一个问题，如果构造函数传入的参数列表为(int,String)，那么是调用上面的（int,String），还是这里的（int,T)，毕竟T作为泛型是可以表示String的
@@ -35,20 +41,32 @@ public class ServerResponse<T> implements Serializable {
         this.data = data;
     }
 
-    private ServerResponse(int status, String msg, T data) {
-        this.status = status;
-        this.msg = msg;
+    private ServerResponse(boolean success, T data) {
+        this.success = success;
         this.data = data;
     }
 
+    private ServerResponse(int status, String message, T data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
+
+    private ServerResponse(boolean success, String message, T data) {
+        this.success = success;
+        this.message = message;
+        this.data = data;
+    }
+
+
     //    使之不在JSON序列化结果当中
-    @JSONField(serialize=false)
+    @JSONField(serialize = false)
     // 可以快速进行成功与否的条件判断
     public boolean isSuccess() {
         return this.status == ResponseCode.SUCCESS.getCode();
     }
 
-    @JSONField(serialize=false)
+    @JSONField(serialize = false)
     // 可以快速进行成功与否的条件判断，判断false时，不用加!。囧
     public boolean isFail() {
         return this.status != ResponseCode.SUCCESS.getCode();
@@ -58,8 +76,8 @@ public class ServerResponse<T> implements Serializable {
         return status;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
     public T getData() {
@@ -81,7 +99,11 @@ public class ServerResponse<T> implements Serializable {
     }
 
     public static <T> ServerResponse<T> success(String msg, T data) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), msg, data);
+        return new ServerResponse<T>(true, msg, data);
+    }
+
+    public static <T> ServerResponse<T> success(ResponseCode responseCode, T data) {
+        return new ServerResponse(true, responseCode.getDesc(), data);
     }
 
     //    失败时的调用
@@ -92,6 +114,11 @@ public class ServerResponse<T> implements Serializable {
     public static <T> ServerResponse<T> error(String errorMessage) {
         return new ServerResponse<T>(ResponseCode.ERROR.getCode(), errorMessage);
     }
+
+    public static <T> ServerResponse<T> error(ResponseCode responseCode) {
+        return new ServerResponse<T>(responseCode);
+    }
+
 
     public static <T> ServerResponse<T> error(int errorCode, String errorMessage) {
         return new ServerResponse<T>(errorCode, errorMessage);

@@ -16,10 +16,10 @@
 			<div style="height: 80px;"></div>
 			<form class="mui-input-group" id="form">
 				<div class="mui-input-row">
-					<input type="text" class="mui-input-clear" value="11111" placeholder="用户名" id="username" style="font-size: 18px;">
+					<input type="text" class="mui-input-clear" value="xiaoming" placeholder="用户名" id="username" style="font-size: 18px;">
 				</div>
 				<div class="mui-input-row" style="margin-top: 10px;">
-					<input type="password" class="mui-input-clear" value="2222" placeholder="密码" id="password" style="font-size: 18px;">
+					<input type="password" class="mui-input-clear" value="1" placeholder="密码" id="password" style="font-size: 18px;">
 				</div>
 				<div class="mui-content-padded" align="center" style="margin-top: 10px;">
 					<button type="submit" class="mui-btn mui-btn-blue" id="login" style="width: 100%;margin-bottom: 5px;">登陆</button>
@@ -69,14 +69,12 @@
 			}
 			
 			function doSumit() {
-				console.log(1)
 				// 判断输入是否为空，为空获取焦点
 				if(util.isEmpty(input_username.value)) {
 					input_username.focus();
 					mui.toast("请输入用户名");
 					return false;
 				}
-				console.log(2)
 				if(util.isEmpty(input_password.value)) {
 					input_password.focus();
 					mui.toast("请输入密码");
@@ -101,7 +99,7 @@
 
 				mui.toast(data.message);
 				if(data.success) {
-					util.saveUser(data.result);
+					util.saveUser(data.data);
 					mui.openWindow("index.html", "index");
 				}
 			}
