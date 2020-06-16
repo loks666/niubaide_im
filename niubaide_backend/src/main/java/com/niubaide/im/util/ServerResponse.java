@@ -57,7 +57,7 @@ public class ServerResponse<T> implements Serializable {
 
 
     //    使之不在JSON序列化结果当中
-    @JSONField(serialize = false)
+//    @JSONField(serialize = false)
     // 可以快速进行成功与否的条件判断
     public boolean isSuccess() {
         return this.status == ResponseCode.SUCCESS.getCode();

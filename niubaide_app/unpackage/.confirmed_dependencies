@@ -33,7 +33,8 @@
 			"js/mui.min.js",
 			"css/mui.min.css",
 			"register.html",
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"login.html"
 		]
 	},
 	"main_me.html": {

@@ -212,10 +212,10 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"register.html",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"login.html"
 				],
 				"refer": [
-					"login.html",
 					"index.html"
 				],
 				"priority": 0
