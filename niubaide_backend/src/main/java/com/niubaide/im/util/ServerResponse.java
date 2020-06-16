@@ -1,6 +1,7 @@
 package com.niubaide.im.util;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.io.Serializable;
  */
 // 生成无参构造，确保在RPC调用时，不会出现反序列失败
 @NoArgsConstructor
+@Data
 public class ServerResponse<T> implements Serializable {
 
     private int status;
@@ -21,7 +23,7 @@ public class ServerResponse<T> implements Serializable {
         this.status = status;
     }
 
-    private ServerResponse(ResponseCode code,boolean success) {
+    private ServerResponse(ResponseCode code, boolean success) {
         this.success = success;
         this.message = new StringBuilder(code.getCode()).append(":").append(code.getDesc()).toString();
     }
@@ -55,9 +57,16 @@ public class ServerResponse<T> implements Serializable {
         this.data = data;
     }
 
+    public ServerResponse(boolean success, int status, String message, T data) {
+        this.status = status;
+        this.success = success;
+        this.message = message;
+        this.data = data;
+    }
+
 
     //    使之不在JSON序列化结果当中
-//    @JSONField(serialize = false)
+    @JSONField(serialize = false)
     // 可以快速进行成功与否的条件判断
     public boolean isSuccess() {
         return this.status == ResponseCode.SUCCESS.getCode();
@@ -67,18 +76,6 @@ public class ServerResponse<T> implements Serializable {
     // 可以快速进行成功与否的条件判断，判断false时，不用加!。囧
     public boolean isFail() {
         return this.status != ResponseCode.SUCCESS.getCode();
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public T getData() {
-        return data;
     }
 
     // 快速构建返回结果
@@ -96,7 +93,7 @@ public class ServerResponse<T> implements Serializable {
     }
 
     public static <T> ServerResponse<T> success(ResponseCode code) {
-        return new ServerResponse(code,true);
+        return new ServerResponse(code, true);
     }
 
     public static <T> ServerResponse<T> success(String msg, T data) {
@@ -104,7 +101,7 @@ public class ServerResponse<T> implements Serializable {
     }
 
     public static <T> ServerResponse<T> success(ResponseCode responseCode, T data) {
-        return new ServerResponse(true, responseCode.getDesc(), data);
+        return new ServerResponse(true, ResponseCode.SUCCESS.getCode(), responseCode.getDesc(), data);
     }
 
     //    失败时的调用
@@ -117,7 +114,7 @@ public class ServerResponse<T> implements Serializable {
     }
 
     public static <T> ServerResponse<T> error(ResponseCode responseCode) {
-        return new ServerResponse(responseCode,false);
+        return new ServerResponse(responseCode, false);
     }
 
 

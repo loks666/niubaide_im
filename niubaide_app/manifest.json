@@ -187,7 +187,9 @@
 				"resources": [
 					"main_hchat.html",
 					"main_me.html",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/mui.min.css"
 				],
 				"refer": [
 					"main_contact.html",
@@ -269,7 +271,11 @@
 				"resources": [
 					"js/hanzi_pinyin.js",
 					"css/mui.indexedlist.css",
-					"js/mui.indexedlist.js"
+					"js/mui.indexedlist.js",
+					"js/common.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
 				],
 				"refer": [
 					"chat.html"

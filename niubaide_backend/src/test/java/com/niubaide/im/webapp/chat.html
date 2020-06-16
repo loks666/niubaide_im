@@ -26,9 +26,9 @@
                 console.log("断开连接");
             }
             websocket.onmessage = function(e) {
-                console.log("接收到服务器消息:" + e.data);
+                console.log("接收到服务器消息:" + e.result);
                 var server_message = document.getElementById("server_message");
-                server_message.innerHTML += e.data + "<br/>";
+                server_message.innerHTML += e.result + "<br/>";
             }
         }
         else {

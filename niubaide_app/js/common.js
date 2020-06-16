@@ -1,9 +1,10 @@
 
 window.config = {
+
 	// 服务器地址
-	SERVER_URL: 'http://10.200.42.234:8080',
+	SERVER_URL: 'http://10.200.11.36:8080',
 	// NETTY地址
-	WS_URL: 'ws://10.200.42.234:5001/ws',
+	WS_URL: 'ws://10.200.11.36:5001/ws',
 	// 默认小头像路径名
 	DEFAULT_PIC_IMG: "/image/default_user_pic.png",
 	// 默认大头像路径名
@@ -31,7 +32,7 @@ window.util = {
 			return true;
 		}
 	},
-	
+
 	/**
 	 * 封装AJAX请求
 	 * @param {Object} url 相对链接：/user/login
@@ -42,7 +43,7 @@ window.util = {
 		if(data == undefined || data == null) {
 			data = {};
 		}
-		
+
 		mui.ajax(config.SERVER_URL + url, {
 			data: data,
 			dataType: 'json',
@@ -58,7 +59,7 @@ window.util = {
 				}
 			}
 		});
-	},	
+	},
 	/**
 	 * 保存用户信息
 	 * @param {Object} user
@@ -66,14 +67,14 @@ window.util = {
 	saveUser: function(user) {
 		plus.storage.setItem("user", JSON.stringify(user));
 	},
-	
+
 	/**
 	 * 获取用户信息
 	 */
 	getUser: function () {
 		return JSON.parse(plus.storage.getItem("user"));
 	},
-	
+
 	/**
 	 * 获取发送出去的消息体
 	 * @param {Object} type 消息类型
@@ -96,7 +97,7 @@ window.util = {
 		};
 	},
 	/**
-	 * 保存聊天记录 
+	 * 保存聊天记录
 	 * @param {Object} userid 当前用户id
 	 * @param {Object} friendid 朋友用户id
 	 * @param {Object} message 消息
@@ -105,7 +106,7 @@ window.util = {
 	saveChatRecord: function(userid, friendid, message, flag) {
 		var key = "chat-" + userid + "-" + friendid;
 		var chatRecordList = plus.storage.getItem(key);
-		
+
 		if(!this.isEmpty(chatRecordList)) {
 			// 如果不为空
 			chatRecordList = JSON.parse(chatRecordList);
@@ -113,7 +114,7 @@ window.util = {
 		else {
 			chatRecordList = [];
 		}
-		
+
 		// 创建聊天记录消息
 		var chatRecord = {
 			userid: userid,
@@ -133,7 +134,7 @@ window.util = {
 	getChatRecord: function(userid, friendid) {
 		var key = "chat-" + userid + "-" + friendid;
 		var chatRecordList = plus.storage.getItem(key);
-		
+
 		if(!this.isEmpty(chatRecordList)) {
 			// 如果不为空
 			chatRecordList = JSON.parse(chatRecordList);
@@ -141,9 +142,9 @@ window.util = {
 		else {
 			chatRecordList = [];
 		}
-		
+
 		return chatRecordList;
-	},	
+	},
 	/**
 	 * 删除好友聊天快照
 	 * @param {Object} userid
@@ -152,9 +153,9 @@ window.util = {
 	removeChatSnapshot: function(userid, friendid) {
 		var key = "chat-snapshot-" + userid;
 		var chatSnapchatList = plus.storage.getItem(key);
-		
+
 		// 大key userid，小key friendid
-		
+
 		if(!this.isEmpty(chatSnapchatList)) {
 			// 如果不为空
 			console.log("添加聊天快照:friendid:" + friendid);
@@ -168,9 +169,9 @@ window.util = {
 					break;
 				}
 			}
-			
+
 		}
-		
+
 		plus.storage.setItem(key, JSON.stringify(chatSnapchatList));
 	},
 	/**
@@ -183,9 +184,9 @@ window.util = {
 	saveChatSnapshot: function(userid, friendid, message, isRead) {
 		var key = "chat-snapshot-" + userid;
 		var chatSnapchatList = plus.storage.getItem(key);
-		
+
 		// 大key userid，小key friendid
-		
+
 		if(!this.isEmpty(chatSnapchatList)) {
 			// 如果不为空
 			chatSnapchatList = JSON.parse(chatSnapchatList);
@@ -196,12 +197,12 @@ window.util = {
 					chatSnapchatList.splice(i, 1);
 				}
 			}
-			
+
 		}
 		else {
 		}
 		chatSnapchatList = [];
-		
+
 		// 创建聊天快照消息
 		var chatSnapshot = {
 			friendid: friendid,
@@ -212,7 +213,7 @@ window.util = {
 		chatSnapchatList.unshift(chatSnapshot);
 		plus.storage.setItem(key, JSON.stringify(chatSnapchatList));
 	},
-	
+
 	/**
 	 * 根据用户的id，朋友的id获取聊天快照
 	 * @param {Object} userid
@@ -221,7 +222,7 @@ window.util = {
 	getChatSnapshot: function(userid) {
 		var key = "chat-snapshot-" + userid;
 		var chatSnapchatList = plus.storage.getItem(key);
-		
+
 		if(!this.isEmpty(chatSnapchatList)) {
 			// 如果不为空
 			chatSnapchatList = JSON.parse(chatSnapchatList);
@@ -229,7 +230,7 @@ window.util = {
 		else {
 			chatSnapchatList = [];
 		}
-		
+
 		console.log("聊天快照:" + JSON.stringify(chatSnapchatList));
 		return chatSnapchatList;
 	}

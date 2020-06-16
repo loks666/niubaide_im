@@ -1,6 +1,5 @@
 package com.niubaide.im.controller;
 
-import com.niubaide.im.pojo.vo.ResultVo;
 import com.niubaide.im.pojo.vo.User;
 import com.niubaide.im.util.ResponseCode;
 import com.niubaide.im.util.ServerResponse;
@@ -33,17 +32,21 @@ public class ImController {
             Assert.hasText(user.getPassword(), "用户密码不能为空");
             User result = userService.login(user.getUsername(), user.getPassword());
             ServerResponse<User> success = ServerResponse.success(ResponseCode.LOGIN_SUCCESS, result);
+//            return success;
             return success;
         } catch (NullPointerException e) {
             log.error("ImController#login", e);
-            return ServerResponse.error(ResponseCode.NULL_PARAM);
+//            return ServerResponse.error(ResponseCode.NULL_PARAM);
 //            return new ResultVo(true,"登陆成功",user);
+            return null;
         } catch (IllegalArgumentException e) {
             log.error("ImController#login", e);
-            return ServerResponse.error(ResponseCode.ILLEGAL_PARAMETER);
+            return null;
+//            return ServerResponse.error(ResponseCode.ILLEGAL_PARAMETER);
         } catch (Exception e) {
             log.error("ImController#login", e);
-            return ServerResponse.error(ResponseCode.SERVER_ERROR);
+            return null;
+//            return ServerResponse.error(ResponseCode.SERVER_ERROR);
         }
     }
 
