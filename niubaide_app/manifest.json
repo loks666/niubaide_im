@@ -201,11 +201,13 @@
 			"register.html": {
 				"resources": [
 					"login.html",
-					"fonts/mui.ttf"
-				],
-				"refer": [
+					"fonts/mui.ttf",
+					"js/common.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
 					"register.html"
 				],
+				"refer": [],
 				"priority": 0
 			},
 			"login.html": {

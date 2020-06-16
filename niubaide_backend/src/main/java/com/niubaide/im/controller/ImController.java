@@ -31,22 +31,16 @@ public class ImController {
             Assert.hasText(user.getUsername(), "用户名不能为空");
             Assert.hasText(user.getPassword(), "用户密码不能为空");
             User result = userService.login(user.getUsername(), user.getPassword());
-            ServerResponse<User> success = ServerResponse.success(ResponseCode.LOGIN_SUCCESS, result);
-//            return success;
-            return success;
+            return ServerResponse.success(ResponseCode.LOGIN_SUCCESS, result);
         } catch (NullPointerException e) {
             log.error("ImController#login", e);
-//            return ServerResponse.error(ResponseCode.NULL_PARAM);
-//            return new ResultVo(true,"登陆成功",user);
-            return null;
+            return ServerResponse.error(ResponseCode.NULL_PARAM);
         } catch (IllegalArgumentException e) {
             log.error("ImController#login", e);
-            return null;
-//            return ServerResponse.error(ResponseCode.ILLEGAL_PARAMETER);
+            return ServerResponse.error(ResponseCode.ILLEGAL_PARAMETER);
         } catch (Exception e) {
             log.error("ImController#login", e);
-            return null;
-//            return ServerResponse.error(ResponseCode.SERVER_ERROR);
+            return ServerResponse.error(ResponseCode.SERVER_ERROR);
         }
     }
 
@@ -57,7 +51,8 @@ public class ImController {
             Assert.hasText(user.getPassword(), "用户密码不能为空");
             int register = userService.register(user);
             if (register == 1) {
-                return ServerResponse.success(ResponseCode.REGISTER_SUCCESS);
+                ServerResponse<Object> success = ServerResponse.success(ResponseCode.REGISTER_SUCCESS);
+                return success;
             }
             return ServerResponse.error(ResponseCode.REGISTER_FAIL);
         } catch (NullPointerException e) {

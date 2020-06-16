@@ -23,9 +23,10 @@ public class ServerResponse<T> implements Serializable {
         this.status = status;
     }
 
-    private ServerResponse(ResponseCode code, boolean success) {
+    private ServerResponse(boolean success, ResponseCode code) {
         this.success = success;
-        this.message = new StringBuilder(code.getCode()).append(":").append(code.getDesc()).toString();
+        this.status = code.getCode();
+        this.message = code.getDesc();
     }
 
     private ServerResponse(int status, String message) {
@@ -93,7 +94,7 @@ public class ServerResponse<T> implements Serializable {
     }
 
     public static <T> ServerResponse<T> success(ResponseCode code) {
-        return new ServerResponse(code, true);
+        return new ServerResponse(true, code);
     }
 
     public static <T> ServerResponse<T> success(String msg, T data) {
@@ -114,7 +115,7 @@ public class ServerResponse<T> implements Serializable {
     }
 
     public static <T> ServerResponse<T> error(ResponseCode responseCode) {
-        return new ServerResponse(responseCode, false);
+        return new ServerResponse(false, responseCode);
     }
 
 

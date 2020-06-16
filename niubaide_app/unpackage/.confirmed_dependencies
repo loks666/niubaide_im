@@ -21,7 +21,11 @@
 		],
 		"resources": [
 			"login.html",
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"js/common.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"register.html"
 		]
 	},
 	"login.html": {

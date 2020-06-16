@@ -87,10 +87,12 @@
 							username.blur();
 							password.blur();
 
+
 							mui.toast(res.message);
-							
-							if(res.success) {
-								mui.back();
+							console.log(res.success)
+							if(res.status == 202) {
+								mui.openWindow("login.html", "login");
+								// mui.back();
 							}
 						}
 					});
