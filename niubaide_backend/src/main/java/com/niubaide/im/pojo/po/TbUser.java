@@ -1,5 +1,8 @@
 package com.niubaide.im.pojo.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -16,6 +19,7 @@ public class TbUser {
     /**
      * 数据库用户id
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private String id;
     /**
      * 用户名

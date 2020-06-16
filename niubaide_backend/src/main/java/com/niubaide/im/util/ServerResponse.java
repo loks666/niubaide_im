@@ -1,16 +1,13 @@
 package com.niubaide.im.util;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 /**
- * @Author: jarry
+ * @author: jax
  */
-// 确保序列化JSON时，如果是null对象，其key也会消失。
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 // 生成无参构造，确保在RPC调用时，不会出现反序列失败
 @NoArgsConstructor
 public class ServerResponse<T> implements Serializable {
@@ -24,8 +21,8 @@ public class ServerResponse<T> implements Serializable {
         this.status = status;
     }
 
-    private ServerResponse(ResponseCode code) {
-        this.success = false;
+    private ServerResponse(ResponseCode code,boolean success) {
+        this.success = success;
         this.message = new StringBuilder(code.getCode()).append(":").append(code.getDesc()).toString();
     }
 
@@ -52,7 +49,7 @@ public class ServerResponse<T> implements Serializable {
         this.data = data;
     }
 
-    private ServerResponse(boolean success, String message, T data) {
+    public ServerResponse(boolean success, String message, T data) {
         this.success = success;
         this.message = message;
         this.data = data;
@@ -91,11 +88,15 @@ public class ServerResponse<T> implements Serializable {
     }
 
     public static <T> ServerResponse<T> success(String msg) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), msg);
+        return new ServerResponse(ResponseCode.SUCCESS.getCode(), msg);
     }
 
     public static <T> ServerResponse<T> success(T data) {
-        return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(), data);
+        return new ServerResponse(ResponseCode.SUCCESS.getCode(), data);
+    }
+
+    public static <T> ServerResponse<T> success(ResponseCode code) {
+        return new ServerResponse(code,true);
     }
 
     public static <T> ServerResponse<T> success(String msg, T data) {
@@ -108,19 +109,19 @@ public class ServerResponse<T> implements Serializable {
 
     //    失败时的调用
     public static <T> ServerResponse<T> error() {
-        return new ServerResponse<T>(ResponseCode.ERROR.getCode(), ResponseCode.ERROR.getDesc());
+        return new ServerResponse(ResponseCode.ERROR.getCode(), ResponseCode.ERROR.getDesc());
     }
 
     public static <T> ServerResponse<T> error(String errorMessage) {
-        return new ServerResponse<T>(ResponseCode.ERROR.getCode(), errorMessage);
+        return new ServerResponse(ResponseCode.ERROR.getCode(), errorMessage);
     }
 
     public static <T> ServerResponse<T> error(ResponseCode responseCode) {
-        return new ServerResponse<T>(responseCode);
+        return new ServerResponse(responseCode,false);
     }
 
 
     public static <T> ServerResponse<T> error(int errorCode, String errorMessage) {
-        return new ServerResponse<T>(errorCode, errorMessage);
+        return new ServerResponse(errorCode, errorMessage);
     }
 }

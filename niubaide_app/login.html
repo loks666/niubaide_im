@@ -96,12 +96,15 @@
 				// 设置键盘失去焦点
 				input_username.blur();
 				input_password.blur();
-
+				console.log(data.success)
 				mui.toast(data.message);
+
 				if(data.success) {
 					util.saveUser(data.data);
+
 					mui.openWindow("index.html", "index");
 				}
+				console.log("登陆失败")
 			}
 		</script>
 	</body>
