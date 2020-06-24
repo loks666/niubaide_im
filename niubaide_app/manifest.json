@@ -227,7 +227,10 @@
 			"main_me.html": {
 				"resources": [
 					"image/qrcode.png",
-					"image/default_user_pic.png"
+					"image/default_user_pic.png",
+					"js/common.js",
+					"js/mui.min.js",
+					"css/mui.min.css"
 				],
 				"refer": [
 					"me_photo.html",

@@ -3,6 +3,7 @@ package com.niubaide.im.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.niubaide.im.pojo.po.TbUser;
 import com.niubaide.im.pojo.vo.User;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface UserService extends IService<TbUser> {
     User login(String userName,String password);
 
     int register(TbUser user);
+
+    User upload(MultipartFile file, String userid);
 }

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -67,6 +68,21 @@ public class ImController {
         } catch (Exception e) {
             log.error("ImController#login", e);
             return ServerResponse.error(ResponseCode.SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/upload")
+    public ServerResponse upload(MultipartFile file, String userid) {
+        try {
+            Assert.hasText(userid, "用户id不能为空");
+            User user = userService.upload(file, userid);
+            if (user != null) {
+                return ServerResponse.success(ResponseCode.SUCCESS);
+            }
+            return ServerResponse.error("用户为空！");
+        } catch (Exception e) {
+            log.error("ImController#upload", e);
+            return ServerResponse.error("上传服务异常:" + e.getMessage());
         }
     }
 
