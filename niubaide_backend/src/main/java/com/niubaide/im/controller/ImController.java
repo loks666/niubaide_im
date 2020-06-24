@@ -87,4 +87,35 @@ public class ImController {
         }
     }
 
+    @PostMapping("/updateNickname")
+    public ServerResponse updateNickname(@RequestBody TbUser user) {
+        try {
+            Assert.hasText(user.getId(), "用户id不能为空");
+            Assert.hasText(user.getUsername(), "用户名不能为空");
+            int result = userService.updateNickname(user);
+            if (result != 0) {
+                return ServerResponse.success(ResponseCode.SUCCESS, "更新成功！");
+            }
+            return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), "更新失败！");
+        } catch (Exception e) {
+            log.error("ImController#updateNickname", e);
+            return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), e.getMessage());
+        }
+    }
+
+    @PostMapping("/findById")
+    public ServerResponse findById(String userid) {
+        try {
+            Assert.hasText(userid, "用户id不能为空");
+            User user = userService.findById(userid);
+            if (user != null) {
+                return ServerResponse.success(ResponseCode.SUCCESS, "查询成功！");
+            }
+            return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), "查询失败！");
+        } catch (Exception e) {
+            log.error("ImController#updateNickname", e);
+            return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), e.getMessage());
+        }
+    }
+
 }

@@ -16,4 +16,9 @@ public interface UserService extends IService<TbUser> {
     int register(TbUser user);
 
     User upload(MultipartFile file, String userid);
+
+    int updateNickname(TbUser user);
+
+    User findById(String userid);
+
 }

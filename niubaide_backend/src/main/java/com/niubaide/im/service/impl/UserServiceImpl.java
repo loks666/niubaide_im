@@ -85,7 +85,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
             // 类型后缀名
             String ext = fileNameList[1];
             // 缩略图
-            String picSmallUrl = fileName + "_150✖150." + ext;
+            String picSmallUrl = fileName + "_150×150." + ext;
             // 获取url前缀
             String perfix = env.getProperty("fdfs.httpurl");
             TbUser tbUser = userMapper.selectById(userid);
@@ -103,5 +103,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public int updateNickname(TbUser user) {
+        return userMapper.updateById(user);
+    }
+
+    @Override
+    public User findById(String userid) {
+        User user = new User();
+        TbUser tbUser = userMapper.selectById(userid);
+        BeanUtils.copyProperties(tbUser,user);
+        return user;
     }
 }
