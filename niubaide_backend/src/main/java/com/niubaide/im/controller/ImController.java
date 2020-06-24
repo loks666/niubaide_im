@@ -77,6 +77,7 @@ public class ImController {
             Assert.hasText(userid, "用户id不能为空");
             User user = userService.upload(file, userid);
             if (user != null) {
+                System.out.println(user);
                 return ServerResponse.success(ResponseCode.SUCCESS);
             }
             return ServerResponse.error("用户为空！");

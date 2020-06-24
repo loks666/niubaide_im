@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import com.github.tobato.fastdfs.domain.StorePath;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.exception.FdfsUnsupportStorePathException;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.apache.commons.io.FileUtils;
@@ -109,7 +109,7 @@ public class FastDFSClient {
 			return;
 		}
 		try {
-			StorePath storePath = StorePath.praseFromUrl(fileUrl);
+			StorePath storePath = StorePath.parseFromUrl(fileUrl);
 			storageClient.deleteFile(storePath.getGroup(), storePath.getPath());
 		} catch (FdfsUnsupportStorePathException e) {
 			e.getMessage();

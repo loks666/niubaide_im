@@ -57,4 +57,12 @@ public class User {
      */
     private String phone;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", picNormal='" + picNormal + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
+    }
 }
