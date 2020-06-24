@@ -1,5 +1,6 @@
 package com.niubaide.im.service.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import com.niubaide.im.pojo.vo.User;
 import com.niubaide.im.service.UserService;
 import com.niubaide.im.util.FastDFSClient;
 import com.niubaide.im.util.IdWorker;
+import com.niubaide.im.util.QRCodeUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -38,6 +40,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
     @Autowired
     private Environment env;
 
+    @Autowired
+    private QRCodeUtils qrCodeUtils;
+
     @Override
     public List<TbUser> getAllUser() {
         return userMapper.selectList(null);
@@ -60,18 +65,35 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
 
     @Override
     public int register(TbUser user) {
-        QueryWrapper<TbUser> tb = new QueryWrapper<>();
-        tb.eq("username", user.getUsername());
-        TbUser register = userMapper.selectOne(tb);
-        if (register != null) {
-            throw new RuntimeException("该用户已存在！");
+        try {
+            QueryWrapper<TbUser> tb = new QueryWrapper<>();
+            tb.eq("username", user.getUsername());
+            TbUser register = userMapper.selectOne(tb);
+            if (register != null) {
+                throw new RuntimeException("该用户已存在！");
+            }
+            // 雪花算法算id
+            user.setId(idWorker.nextId());
+            user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+
+            // 生成二维码，将生成的二维码保存到数据库中
+            String qrCode = "niubaide://" + user.getUsername();
+            // 获取一个临时目录，保存二维码生成的图片
+            String tempDir = env.getProperty("niubaide.tmpdir");
+            // 要生成的二维码字符串
+            String qrCodePath = tempDir + user.getUsername() + ".png";
+            qrCodeUtils.createQRCode(qrCodePath, qrCode);
+
+            // 拼接二维码生成路径
+            String url = env.getProperty("fdfs.httpurl") + fastDFSClient.uploadFile(new File(qrCodePath));
+            user.setQrcode(url);
+            user.setNickname(user.getUsername());
+            user.setCreatetime(new Date());
+            return userMapper.insert(user);
+        } catch (Exception e) {
+            log.error("UserServiceImpl#register", e);
+            throw new RuntimeException("注册失败！");
         }
-        // 雪花算法算id
-        user.setId(idWorker.nextId());
-        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
-        user.setNickname(user.getUsername());
-        user.setCreatetime(new Date());
-        return userMapper.insert(user);
     }
 
     @Override
@@ -114,7 +136,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
     public User findById(String userid) {
         User user = new User();
         TbUser tbUser = userMapper.selectById(userid);
-        BeanUtils.copyProperties(tbUser,user);
+        BeanUtils.copyProperties(tbUser, user);
         return user;
     }
 }
