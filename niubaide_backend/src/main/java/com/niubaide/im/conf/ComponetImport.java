@@ -18,5 +18,4 @@ import org.springframework.jmx.support.RegistrationPolicy;
 @EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
 public class ComponetImport {
 
-
 }
