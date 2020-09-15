@@ -24,3 +24,6 @@ target
 hs_err_pid*
 /niubaide_backend/target/classes/META-INF/niubaide_backend.kotlin_module
 /niubaide_backend/target/
+/niubaide_backend/niubaide_backend.iml
+/.idea/
+/niubaide_im.iml
