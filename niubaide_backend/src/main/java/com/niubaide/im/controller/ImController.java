@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+/**
+ * @author jax
+ */
 @RestController
 @Slf4j
 @RequestMapping("/user")
