@@ -9,10 +9,20 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 
+/**
+ * @author 李翔
+ */
 public class WebsocketInitializer extends ChannelInitializer<SocketChannel> {
-    // 初始化通道
-    // 在这个方法中去加载对应的ChannelHandler
-    protected void initChannel(SocketChannel ch) throws Exception {
+
+    /**
+     * 初始化通道
+     * 在这个方法中去加载对应的ChannelHandler
+     *
+     * @param ch
+     * @throws Exception
+     */
+    @Override
+    protected void initChannel(SocketChannel ch) {
         // 获取管道，将一个一个的ChannelHandler添加到管道中
         ChannelPipeline pipeline = ch.pipeline();
 

@@ -24,6 +24,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:MM");
 
     // 当Channel中有新的事件消息会自动调用
+    @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
         // 当接收到数据后会自动调用
 
