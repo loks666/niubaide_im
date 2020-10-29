@@ -1,9 +1,5 @@
 package com.niubaide.im.service.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.niubaide.im.expection.ImException;
@@ -22,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -138,5 +137,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
         TbUser tbUser = userMapper.selectById(userid);
         BeanUtils.copyProperties(tbUser, user);
         return user;
+    }
+
+    @Override
+    public User findByUserName(String userid, String friendUsername) {
+        // 1.用户不能添加自己为好友
+
+        // 2.用户不能重复添加
+        // 如果用户已经添加该好友，就不能再次添加
+
+        // 3.判断是否已经提交好友申请，如果已经提交好友申请，直接抛出运行异常
+
+        return null;
     }
 }

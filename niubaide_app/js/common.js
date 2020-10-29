@@ -2,9 +2,9 @@
 window.config = {
 
 	// 服务器地址
-	SERVER_URL: 'http://192.168.1.102:8086',
+	SERVER_URL: 'http://192.168.1.101:8086',
 	// NETTY地址
-	WS_URL: 'ws://192.168.1.102:5001/ws',
+	WS_URL: 'ws://192.168.1.101:5001/ws',
 	// 默认小头像路径名
 	DEFAULT_PIC_IMG: "/image/default_user_pic.png",
 	// 默认大头像路径名
