@@ -112,6 +112,12 @@
             <version>5.2.7.RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <!-- FastDfs -->
+        <dependency>
+            <groupId>com.github.tobato</groupId>
+            <artifactId>fastdfs-client</artifactId>
+            <version>1.26.6</version>
+        </dependency>
     </dependencies>
 
 
