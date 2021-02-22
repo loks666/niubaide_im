@@ -21,4 +21,5 @@ public interface UserService extends IService<TbUser> {
 
     User findById(String userid);
 
+    User findByUserName(String userid, String friendUsername);
 }
