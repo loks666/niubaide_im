@@ -7,6 +7,7 @@ import com.niubaide.im.mapper.UserMapper;
 import com.niubaide.im.pojo.po.TbUser;
 import com.niubaide.im.pojo.vo.User;
 import com.niubaide.im.service.UserService;
+import com.niubaide.im.util.FastDFSClient;
 import com.niubaide.im.util.IdWorker;
 import com.niubaide.im.util.QRCodeUtils;
 import org.springframework.beans.BeanUtils;

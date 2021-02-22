@@ -11,7 +11,7 @@
     <groupId>com.niubaide</groupId>
     <artifactId>niubaide_backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>im</name>
+    <name>niubaide_backend</name>
     <description>niubaide im project for SpringBoot</description>
 
     <properties>
@@ -116,7 +116,7 @@
         <dependency>
             <groupId>com.github.tobato</groupId>
             <artifactId>fastdfs-client</artifactId>
-            <version>1.26.6</version>
+            <version>1.27.2</version>
         </dependency>
     </dependencies>
 
