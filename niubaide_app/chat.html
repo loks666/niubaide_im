@@ -143,7 +143,7 @@
 					util.saveChatSnapshot(user.id, friendid, msg_text.value, 1);
 					
 					// 使用webview执行js脚本
-					var webview = plus.webview.getWebviewById("main_hchat.html");
+					var webview = plus.webview.getWebviewById("main_nchat.html");
 					webview.evalJS("CHAT.chat('" + JSON.stringify(message) + "')");
 					
 					// 清空文本框内容
@@ -231,7 +231,7 @@
 						// 设置聊天记录自动滚动到最后一条
 						areaMsgList.scrollTop = areaMsgList.scrollHeight + areaMsgList.offsetHeight;
 						
-						var webview = plus.webview.getWebviewById("main_hchat.html");
+						var webview = plus.webview.getWebviewById("main_nchat.html");
 						webview.evalJS("loadChatSnapshot()");
 					}
 				});

@@ -185,7 +185,7 @@
 		"pages": {
 			"index.html": {
 				"resources": [
-					"main_hchat.html",
+					"main_nchat.html",
 					"main_me.html",
 					"fonts/mui.ttf",
 					"js/mui.min.js",
@@ -287,7 +287,7 @@
 				],
 				"priority": 0
 			},
-			"main_hchat.html": {
+			"main_nchat.html": {
 				"resources": [],
 				"refer": [
 					"chat.html"

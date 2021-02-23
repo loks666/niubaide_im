@@ -13,9 +13,9 @@
 	</header>
 	
 	<nav class="mui-bar mui-bar-tab">
-	    <a id="hchat" class="mui-tab-item mui-active" data-tab-index="0">
+	    <a id="nchat" class="mui-tab-item mui-active" data-tab-index="0">
 	        <span class="mui-icon mui-icon-chatbubble"></span>
-	        <span class="mui-tab-label">HChat</span>
+	        <span class="mui-tab-label">nchat</span>
 	    </a>
 	    <a class="mui-tab-item" data-tab-index="1">
 	        <span class="mui-icon mui-icon-contact"></span>
@@ -34,8 +34,8 @@
 	<script>
 		// 定义页面组
 		var pageList = [{
-			id: "main_hchat.html",
-			url: "main_hchat.html"
+			id: "main_nchat.html",
+			url: "main_nchat.html"
 		}, {
 			id: "main_contact.html",
 			url: "main_contact.html"
@@ -97,11 +97,11 @@
 			var mewebview = plus.webview.getWebviewById("main_me.html");
 			mui.fire(mewebview, "refresh");
 			
-			var hchatwebview = plus.webview.getWebviewById("main_hchat.html");
-			mui.fire(hchatwebview, "refresh");
+			var nchatwebview = plus.webview.getWebviewById("main_nchat.html");
+			mui.fire(nchatwebview, "refresh");
 			
-			var hchatwebview = plus.webview.getWebviewById("main_contact.html");
-			mui.fire(hchatwebview, "refresh");
+			var nchatwebview = plus.webview.getWebviewById("main_contact.html");
+			mui.fire(nchatwebview, "refresh");
 		}
 	</script>
 </body>

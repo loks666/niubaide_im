@@ -14,7 +14,7 @@ public class PwdTest {
 
     @Test
     public void getPass() {
-        String url = encryptor.encrypt("jdbc:mysql://81.68.219.235:3306/hchat?useUnicode=true&characterEncoding=utf8");
+        String url = encryptor.encrypt("jdbc:mysql://81.68.219.235:3306/nchat?useUnicode=true&characterEncoding=utf8");
         String name = encryptor.encrypt("root");
         String password = encryptor.encrypt("mysql");
         System.out.println(url);

@@ -1,7 +1,7 @@
 {
   "index.html": {
     "resources": [
-      "main_hchat.html",
+      "main_nchat.html",
       "main_me.html",
       "fonts/mui.ttf",
       "js/mui.min.js",
@@ -10,7 +10,7 @@
     "refer": [
       "main_me.html",
       "main_contact.html",
-      "main_hchat.html",
+      "main_nchat.html",
       "main_discover.html"
     ]
   },
@@ -97,7 +97,7 @@
       "css/mui.min.css"
     ]
   },
-  "main_hchat.html": {
+  "main_nchat.html": {
     "refer": [
       "chat.html"
     ]
