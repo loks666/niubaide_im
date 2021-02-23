@@ -11,7 +11,7 @@
     <groupId>com.niubaide</groupId>
     <artifactId>niubaide_backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>niubaide_backend</name>
+    <name>im</name>
     <description>niubaide im project for SpringBoot</description>
 
     <properties>
@@ -117,6 +117,13 @@
             <groupId>com.github.tobato</groupId>
             <artifactId>fastdfs-client</artifactId>
             <version>1.27.2</version>
+        </dependency>
+
+        <!-- 配置文件加密依赖 -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>2.1.1</version>
         </dependency>
     </dependencies>
 
