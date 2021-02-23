@@ -33,6 +33,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
     @Autowired
     private IdWorker idWorker;
 
+
     @Autowired
     private FastDFSClient fastDFSClient;
 
