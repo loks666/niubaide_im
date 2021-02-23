@@ -94,7 +94,7 @@ public class ImController {
     public ServerResponse updateNickname(@RequestBody TbUser user) {
         try {
             Assert.hasText(user.getId(), "用户id不能为空");
-            Assert.hasText(user.getUsername(), "用户名不能为空");
+            Assert.hasText(user.getNickname(), "用户名不能为空");
             int result = userService.updateNickname(user);
             if (result != 0) {
                 return ServerResponse.success(ResponseCode.SUCCESS, "更新成功！");
