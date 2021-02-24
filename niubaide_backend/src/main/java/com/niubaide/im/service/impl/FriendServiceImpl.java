@@ -45,14 +45,41 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, TbFriend> imple
         List<TbFriendReq> reqs = reqService.list(Wrappers.lambdaQuery(TbFriendReq.class)
                 .eq(TbFriendReq::getToUserid, userid)
                 .eq(TbFriendReq::getStatus, 0));
-        List<String> userIds = reqs.stream().map(req -> req.getFromUserid()).collect(Collectors.toList());
-        List<TbUser> tbUsers = userService.listByIds(userIds);
-        List<User> result = tbUsers.stream().map(tbUser -> {
-            User user = new User();
-            BeanUtils.copyProperties(tbUser, user);
-            return user;
-        }).collect(Collectors.toList());
-        return result;
+        return reqs.stream().map(
+                req -> {
+                    TbUser tbUser = userService.getById(req.getFromUserid());
+                    tbUser.setId(req.getId());
+                    User user = new User();
+                    BeanUtils.copyProperties(tbUser, user);
+                    return user;
+                }
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean acceptFriendReq(String reqId) {
+        // 接收请求后添加两条记录到好友列表
+        TbFriendReq req = reqService.getById(reqId);
+        req.setStatus(1);
+        boolean update = reqService.updateById(req);
+
+        TbFriend friend = new TbFriend();
+        friend.setUserid(req.getFromUserid());
+        friend.setFriendsId(req.getToUserid());
+        boolean ab = friendService.saveOrUpdate(friend);
+
+        friend.setUserid(req.getToUserid());
+        friend.setFriendsId(req.getFromUserid());
+        boolean ba = friendService.saveOrUpdate(friend);
+
+        return update && ab && ba;
+    }
+
+    @Override
+    public boolean ignoreFriendReq(String reqId) {
+        TbFriendReq req = new TbFriendReq();
+        req.setStatus(0);
+        return reqService.updateById(req);
     }
 
     private void isFriend(TbFriendReq req) {

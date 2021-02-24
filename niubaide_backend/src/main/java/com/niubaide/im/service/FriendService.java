@@ -22,7 +22,22 @@ public interface FriendService extends IService<TbFriend> {
     /**
      * 获取好友请求的好友信息
      * @param userid
-     * @return
+     * @return List<User>请求的好友列表
      */
     List<User> getFriendReq(String userid);
+
+    /**
+     * 接受好友请求
+     * @param reqId
+     * @return boolean 操作结果
+     */
+    boolean acceptFriendReq(String reqId);
+
+    /**
+     * 忽略好友请求
+     * @param reqId
+     * @return boolean 操作结果
+     */
+    boolean ignoreFriendReq(String reqId);
+
 }

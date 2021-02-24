@@ -29,11 +29,12 @@ public class FriendController {
 
     @Autowired
     private FriendServiceReq reqService;
+
     @PostMapping("/sendRequest")
     public ServerResponse sendRequest(@RequestBody TbFriendReq req) {
         try {
-            Assert.hasText(req.getFromUserid(),"发送人不能为空！");
-            Assert.hasText(req.getToUserid(),"接收人不能为空！");
+            Assert.hasText(req.getFromUserid(), "发送人不能为空！");
+            Assert.hasText(req.getToUserid(), "接收人不能为空！");
             boolean result = friendService.sendRequest(req);
             if (result) {
                 return ServerResponse.success("发送好友请求成功！");
@@ -48,7 +49,31 @@ public class FriendController {
     public ServerResponse findByUserName(String userid) {
         try {
             Assert.hasText(userid, "用户id不能为空！");
-            List<User> result= friendService.getFriendReq(userid);
+            List<User> result = friendService.getFriendReq(userid);
+            return ServerResponse.success(result);
+        } catch (Exception e) {
+            log.error("ImController#findByUserName", e);
+            return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), e.getMessage());
+        }
+    }
+
+    @PostMapping("/acceptFriendReq")
+    public ServerResponse acceptFriendReq(String reqId) {
+        try {
+            Assert.hasText(reqId, "请求id不能为空！");
+            boolean result = friendService.acceptFriendReq(reqId);
+            return ServerResponse.success(result);
+        } catch (Exception e) {
+            log.error("ImController#findByUserName", e);
+            return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), e.getMessage());
+        }
+    }
+
+    @PostMapping("/ignoreFriendReq")
+    public ServerResponse ignoreFriendReq(String reqId) {
+        try {
+            Assert.hasText(reqId, "请求id不能为空！");
+            boolean result = friendService.ignoreFriendReq(reqId);
             return ServerResponse.success(result);
         } catch (Exception e) {
             log.error("ImController#findByUserName", e);
