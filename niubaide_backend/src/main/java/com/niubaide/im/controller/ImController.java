@@ -1,10 +1,10 @@
 package com.niubaide.im.controller;
 
+import com.niubaide.im.pojo.bean.TbUser;
 import com.niubaide.im.pojo.vo.User;
+import com.niubaide.im.service.UserService;
 import com.niubaide.im.util.ResponseCode;
 import com.niubaide.im.util.ServerResponse;
-import com.niubaide.im.pojo.po.TbUser;
-import com.niubaide.im.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;

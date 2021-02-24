@@ -2,7 +2,7 @@ package com.niubaide.im.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.niubaide.im.mapper.UserMapper;
-import com.niubaide.im.pojo.po.TbUser;
+import com.niubaide.im.pojo.bean.TbUser;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +35,9 @@ public class UserServiceImplTest {
         tbUser = userMapper.selectOne(new QueryWrapper<>(tbUser));
         System.out.println(tbUser);
     }
+
     @Test
-    public void test(){
+    public void test() {
         System.out.println(DigestUtils.md5DigestAsHex("1".getBytes()));
     }
 }

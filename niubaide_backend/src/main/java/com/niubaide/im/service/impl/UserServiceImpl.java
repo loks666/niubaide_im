@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.niubaide.im.expection.ImException;
 import com.niubaide.im.mapper.UserMapper;
-import com.niubaide.im.pojo.po.TbUser;
+import com.niubaide.im.pojo.bean.TbUser;
 import com.niubaide.im.pojo.vo.User;
 import com.niubaide.im.service.UserService;
 import com.niubaide.im.util.FastDFSClient;

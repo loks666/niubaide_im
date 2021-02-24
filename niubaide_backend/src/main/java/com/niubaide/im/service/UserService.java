@@ -1,7 +1,7 @@
 package com.niubaide.im.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.niubaide.im.pojo.po.TbUser;
+import com.niubaide.im.pojo.bean.TbUser;
 import com.niubaide.im.pojo.vo.User;
 import org.springframework.web.multipart.MultipartFile;
 
