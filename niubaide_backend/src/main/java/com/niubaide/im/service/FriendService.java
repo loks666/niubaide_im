@@ -3,6 +3,9 @@ package com.niubaide.im.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.niubaide.im.pojo.bean.TbFriend;
 import com.niubaide.im.pojo.bean.TbFriendReq;
+import com.niubaide.im.pojo.vo.User;
+
+import java.util.List;
 
 /**
  * @author fly
@@ -15,4 +18,11 @@ public interface FriendService extends IService<TbFriend> {
      * @return
      */
     boolean sendRequest(TbFriendReq req);
+
+    /**
+     * 获取好友请求的好友信息
+     * @param userid
+     * @return
+     */
+    List<User> getFriendReq(String userid);
 }

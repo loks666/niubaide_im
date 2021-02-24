@@ -5,14 +5,19 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.niubaide.im.mapper.FriendMapper;
 import com.niubaide.im.pojo.bean.TbFriend;
 import com.niubaide.im.pojo.bean.TbFriendReq;
+import com.niubaide.im.pojo.bean.TbUser;
+import com.niubaide.im.pojo.vo.User;
 import com.niubaide.im.service.FriendService;
 import com.niubaide.im.service.FriendServiceReq;
 import com.niubaide.im.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author fly
@@ -33,6 +38,21 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, TbFriend> imple
     public boolean sendRequest(TbFriendReq req) {
         isFriend(req);
         return reqService.saveOrUpdate(req);
+    }
+
+    @Override
+    public List<User> getFriendReq(String userid) {
+        List<TbFriendReq> reqs = reqService.list(Wrappers.lambdaQuery(TbFriendReq.class)
+                .eq(TbFriendReq::getToUserid, userid)
+                .eq(TbFriendReq::getStatus, 0));
+        List<String> userIds = reqs.stream().map(req -> req.getFromUserid()).collect(Collectors.toList());
+        List<TbUser> tbUsers = userService.listByIds(userIds);
+        List<User> result = tbUsers.stream().map(tbUser -> {
+            User user = new User();
+            BeanUtils.copyProperties(tbUser, user);
+            return user;
+        }).collect(Collectors.toList());
+        return result;
     }
 
     private void isFriend(TbFriendReq req) {
