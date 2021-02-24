@@ -1,11 +1,14 @@
 package com.niubaide.im.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.niubaide.im.expection.ImException;
 import com.niubaide.im.mapper.UserMapper;
 import com.niubaide.im.pojo.bean.TbUser;
 import com.niubaide.im.pojo.vo.User;
+import com.niubaide.im.service.FriendService;
+import com.niubaide.im.service.FriendServiceReq;
 import com.niubaide.im.service.UserService;
 import com.niubaide.im.util.FastDFSClient;
 import com.niubaide.im.util.IdWorker;
@@ -33,7 +36,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
     @Autowired
     private IdWorker idWorker;
 
-
     @Autowired
     private FastDFSClient fastDFSClient;
 
@@ -42,6 +44,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
 
     @Autowired
     private QRCodeUtils qrCodeUtils;
+
+    @Autowired
+    private FriendService friendService;
+
+    @Autowired
+    private FriendServiceReq friendServiceReq;
 
     @Override
     public List<TbUser> getAllUser() {
@@ -142,13 +150,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
 
     @Override
     public User findByUserName(String userid, String friendUsername) {
-        // 1.用户不能添加自己为好友
-
-        // 2.用户不能重复添加
-        // 如果用户已经添加该好友，就不能再次添加
-
-        // 3.判断是否已经提交好友申请，如果已经提交好友申请，直接抛出运行异常
-
-        return null;
+        List<TbUser> users = list(Wrappers.lambdaQuery(TbUser.class).eq(TbUser::getUsername, friendUsername));
+        TbUser friend = users.get(0);
+        User result = new User();
+        BeanUtils.copyProperties(friend,result);
+        return result;
     }
+
 }

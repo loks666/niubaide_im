@@ -1,12 +1,13 @@
 package com.niubaide.im.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.niubaide.im.pojo.bean.TbFriendReq;
 import com.niubaide.im.pojo.example.TbFriendReqExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface TbFriendReqMapper {
+public interface TbFriendReqMapper extends BaseMapper<TbFriendReq> {
     int countByExample(TbFriendReqExample example);
 
     int deleteByExample(TbFriendReqExample example);

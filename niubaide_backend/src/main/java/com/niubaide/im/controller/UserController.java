@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/user")
-public class ImController {
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -126,16 +126,15 @@ public class ImController {
         try {
             Assert.hasText(userid, "用户id不能为空！");
             Assert.hasText(friendUsername, "好友姓名不能为空！");
-            User user = userService.findByUserName(userid,friendUsername);
-            if (user != null) {
-                return ServerResponse.success(ResponseCode.SUCCESS, "添加成功！");
+            User result = userService.findByUserName(userid,friendUsername);
+            if (result != null) {
+                return ServerResponse.success(ResponseCode.SUCCESS, "添加好友成功！");
             }
-            return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), "添加失败！");
+            return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), "添加好友失败！");
         } catch (Exception e) {
             log.error("ImController#findByUserName", e);
             return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), e.getMessage());
         }
     }
-
 
 }
