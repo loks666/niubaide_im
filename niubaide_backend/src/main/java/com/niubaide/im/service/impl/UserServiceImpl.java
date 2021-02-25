@@ -93,7 +93,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
             qrCodeUtils.createQRCode(qrCodePath, qrCode);
 
             // 拼接二维码生成路径
-            String url = env.getProperty("fdfs.httpurl") + fastDFSClient.uploadFile(new File(qrCodePath));
+            String url = fastDFSClient.uploadFile(new File(qrCodePath));
             user.setQrcode(url);
             user.setNickname(user.getUsername());
             user.setCreatetime(new Date());

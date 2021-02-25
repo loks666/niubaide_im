@@ -23,4 +23,9 @@ public class PwdTest {
 //        Assert.assertTrue(name.length() > 0);
 //        Assert.assertTrue(password.length() > 0);
     }
+
+    @Test
+    public void fdfs(){
+
+    }
 }
