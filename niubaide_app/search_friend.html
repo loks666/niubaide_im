@@ -37,7 +37,7 @@
 				search.addEventListener("tap", function() {
 					var user = util.getUser();
 					
-					util.ajax("/user/findByUsername?userid=" + user.id + "&friendUsername=" + friendName.value, {
+					util.ajax("/user/findByUserName?userid=" + user.id + "&friendUsername=" + friendName.value, {
 						},
 						function(data) {
 							console.log(JSON.stringify(data));

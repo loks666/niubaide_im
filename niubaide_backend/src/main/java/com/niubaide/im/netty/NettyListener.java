@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class NettyListener implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
-    private WebSocketServer websocketServer;
+    public WebSocketServer websocketServer;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
