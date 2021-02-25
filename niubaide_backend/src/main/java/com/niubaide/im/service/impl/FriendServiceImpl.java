@@ -82,6 +82,18 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, TbFriend> imple
         return reqService.updateById(req);
     }
 
+    @Override
+    public List<User> findFriendByUserid(String userid) {
+        List<TbFriend> friends = friendService.list(Wrappers.lambdaQuery(TbFriend.class).eq(TbFriend::getUserid, userid));
+        List<String> friendIds = friends.stream().map(friend -> friend.getFriendsId()).collect(Collectors.toList());
+        List<User> result = userService.listByIds(friendIds).stream().map(tbUser -> {
+            User user = new User();
+            BeanUtils.copyProperties(tbUser, user);
+            return user;
+        }).collect(Collectors.toList());
+        return result;
+    }
+
     private void isFriend(TbFriendReq req) {
         // 1.用户不能添加自己为好友
         Assert.isTrue(!Objects.equals(req.getFromUserid(), req.getToUserid()), "不能添加自己为好友！");

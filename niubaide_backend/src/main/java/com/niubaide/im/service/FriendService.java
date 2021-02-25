@@ -40,4 +40,11 @@ public interface FriendService extends IService<TbFriend> {
      */
     boolean ignoreFriendReq(String reqId);
 
+    /**
+     * 查询好友列表
+     * @param userid 当前登录用户id
+     * @return List<User> 好友列表
+     */
+    List<User> findFriendByUserid(String userid);
+
 }

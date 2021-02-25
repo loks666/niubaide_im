@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * @author fly
+ */
 public interface TbChatRecordMapper {
     int countByExample(TbChatRecordExample example);
 

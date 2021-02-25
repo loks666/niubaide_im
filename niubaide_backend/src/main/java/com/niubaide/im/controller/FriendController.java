@@ -46,13 +46,13 @@ public class FriendController {
     }
 
     @PostMapping("/findFriendReqByUserid")
-    public ServerResponse findByUserName(String userid) {
+    public ServerResponse findFriendReqByUserid(String userid) {
         try {
             Assert.hasText(userid, "用户id不能为空！");
             List<User> result = friendService.getFriendReq(userid);
             return ServerResponse.success(result);
         } catch (Exception e) {
-            log.error("ImController#findByUserName", e);
+            log.error("ImController#findFriendReqByUserid", e);
             return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), e.getMessage());
         }
     }
@@ -64,7 +64,7 @@ public class FriendController {
             boolean result = friendService.acceptFriendReq(reqId);
             return ServerResponse.success(result);
         } catch (Exception e) {
-            log.error("ImController#findByUserName", e);
+            log.error("ImController#acceptFriendReq", e);
             return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), e.getMessage());
         }
     }
@@ -76,9 +76,21 @@ public class FriendController {
             boolean result = friendService.ignoreFriendReq(reqId);
             return ServerResponse.success(result);
         } catch (Exception e) {
+            log.error("ImController#ignoreFriendReq", e);
+            return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), e.getMessage());
+        }
+    }
+    @PostMapping("/findFriendByUserid")
+    public ServerResponse findFriendByUserid(String userid) {
+        try {
+            Assert.hasText(userid, "用户id不能为空！");
+            List<User> result = friendService.findFriendByUserid(userid);
+            return ServerResponse.success(result);
+        } catch (Exception e) {
             log.error("ImController#findByUserName", e);
             return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), e.getMessage());
         }
     }
+
 
 }
