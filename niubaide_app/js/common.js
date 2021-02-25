@@ -12,11 +12,11 @@ window.config = {
 	// 二维码图标路径名
 	QR_CODE_ICON: "/image/qrcode.png",
 	// 消息类型
-	MSG_TYPE_CONN: 0,		// 连接
-	MSG_TYPE_SEND: 1,		// 发送消息
-	MSG_TYPE_REC: 2,		// 签收
-	MSG_TYPE_KEEPALIVE: 3,	// 客户端保持心跳
-	MSG_TYPE_RELOADFRIEND: 4	// 重新拉取好友
+	MSG_TYPE_CONN: "REGISTER",		// 连接
+	MSG_TYPE_SEND: "SINGLE_SENDING",		// 发送消息
+	MSG_TYPE_REC: "RECEIVE",		// 签收
+	MSG_TYPE_KEEPALIVE: "KEEP_HEARTBEAT",	// 客户端保持心跳
+	MSG_TYPE_RELOADFRIEND: "RELOAD_FRIEND"	// 重新拉取好友
 }
 
 window.util = {

@@ -1,7 +1,7 @@
 package com.niubaide.im.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.niubaide.im.mapper.UserMapper;
+import com.niubaide.im.mapper.TbUserMapper;
 import com.niubaide.im.pojo.bean.TbUser;
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import org.springframework.util.DigestUtils;
  */
 public class UserServiceImplTest {
     @Autowired
-    private UserMapper userMapper;
+    private TbUserMapper tbUserMapper;
 
     @Autowired
     StringEncryptor encryptor;
@@ -32,7 +32,7 @@ public class UserServiceImplTest {
         TbUser tbUser = new TbUser();
         tbUser.setUsername("xiaoming");
         tbUser.setPassword("c4ca4238a0b923820dcc509a6f75849b");
-        tbUser = userMapper.selectOne(new QueryWrapper<>(tbUser));
+        tbUser = tbUserMapper.selectOne(new QueryWrapper<>(tbUser));
         System.out.println(tbUser);
     }
 

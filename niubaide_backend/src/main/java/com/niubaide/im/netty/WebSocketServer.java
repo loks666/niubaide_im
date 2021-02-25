@@ -8,6 +8,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author fly
+ */
 @Component
 public class WebSocketServer implements Runnable{
 
@@ -30,7 +33,7 @@ public class WebSocketServer implements Runnable{
      * 回调
      */
     private ChannelFuture future;
-    @Value("${websocket.port}")
+    @Value(" ${websocket.port}")
     private int port;
 
     @Override

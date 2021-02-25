@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.niubaide.im.expection.ImException;
-import com.niubaide.im.mapper.UserMapper;
+import com.niubaide.im.mapper.TbUserMapper;
 import com.niubaide.im.pojo.bean.TbUser;
 import com.niubaide.im.pojo.vo.User;
 import com.niubaide.im.service.FriendService;
@@ -26,12 +26,15 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author fly
+ */
 @Service
-@Transactional
-public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements UserService {
+@Transactional(rollbackFor = ImException.class)
+public class UserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> implements UserService {
 
     @Autowired
-    private UserMapper userMapper;
+    private TbUserMapper tbUserMapper;
 
     @Autowired
     private IdWorker idWorker;
@@ -53,7 +56,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
 
     @Override
     public List<TbUser> getAllUser() {
-        return userMapper.selectList(null);
+        return tbUserMapper.selectList(null);
     }
 
     @Override
@@ -62,7 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
         QueryWrapper<TbUser> tb = new QueryWrapper<>();
         // 用加密后的密码和用户名查询
         tb.eq("username", userName).eq("password", md5Pwd);
-        TbUser tbUser = userMapper.selectOne(tb);
+        TbUser tbUser = tbUserMapper.selectOne(tb);
         if (tbUser != null) {
             User user = new User();
             BeanUtils.copyProperties(tbUser, user);
@@ -76,7 +79,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
         try {
             QueryWrapper<TbUser> tb = new QueryWrapper<>();
             tb.eq("username", user.getUsername());
-            TbUser register = userMapper.selectOne(tb);
+            TbUser register = tbUserMapper.selectOne(tb);
             if (register != null) {
                 throw new RuntimeException("该用户已存在！");
             }
@@ -97,7 +100,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
             user.setQrcode(url);
             user.setNickname(user.getUsername());
             user.setCreatetime(new Date());
-            return userMapper.insert(user);
+            return tbUserMapper.insert(user);
         } catch (Exception e) {
             log.error("UserServiceImpl#register", e);
             throw new RuntimeException("注册失败！");
@@ -118,10 +121,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
             String picSmallUrl = fileName + "_150×150." + ext;
             // 获取url前缀
             String perfix = env.getProperty("fdfs.httpurl");
-            TbUser tbUser = userMapper.selectById(userid);
+            TbUser tbUser = tbUserMapper.selectById(userid);
             tbUser.setPicNormal(perfix + url);
             tbUser.setPicSmall(perfix + picSmallUrl);
-            int i = userMapper.updateById(tbUser);
+            int i = tbUserMapper.updateById(tbUser);
             if (i != 0) {
                 User user = new User();
                 BeanUtils.copyProperties(tbUser, user);
@@ -137,13 +140,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, TbUser> implements 
 
     @Override
     public int updateNickname(TbUser user) {
-        return userMapper.updateById(user);
+        return tbUserMapper.updateById(user);
     }
 
     @Override
     public User findById(String userid) {
         User user = new User();
-        TbUser tbUser = userMapper.selectById(userid);
+        TbUser tbUser = tbUserMapper.selectById(userid);
         BeanUtils.copyProperties(tbUser, user);
         return user;
     }

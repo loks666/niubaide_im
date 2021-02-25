@@ -80,6 +80,12 @@ public class FriendController {
             return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), e.getMessage());
         }
     }
+
+    /**
+     * 加载通讯录好友
+     * @param userid
+     * @return
+     */
     @PostMapping("/findFriendByUserid")
     public ServerResponse findFriendByUserid(String userid) {
         try {
