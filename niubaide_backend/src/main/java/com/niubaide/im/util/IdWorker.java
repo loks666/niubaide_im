@@ -23,14 +23,18 @@ import java.net.NetworkInterface;
  * @author Polim
  */
 public class IdWorker {
-    // 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
-    private final static long twepoch = 1288834974657L;
+    /**
+     * 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
+     */
+    private final static long TWEPOCH = 1288834974657L;
     // 机器标识位数
-    private final static long workerIdBits = 5L;
+    private final static long WORKER_ID_BITS = 5L;
     // 数据中心标识位数
     private final static long datacenterIdBits = 5L;
-    // 机器ID最大值
-    private final static long maxWorkerId = -1L ^ (-1L << workerIdBits);
+    /**
+     * 机器ID最大值
+     */
+    private final static long MAX_WORKER_ID = -1L ^ (-1L << WORKER_ID_BITS);
     // 数据中心ID最大值
     private final static long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
     // 毫秒内自增位
@@ -38,9 +42,9 @@ public class IdWorker {
     // 机器ID偏左移12位
     private final static long workerIdShift = sequenceBits;
     // 数据中心ID左移17位
-    private final static long datacenterIdShift = sequenceBits + workerIdBits;
+    private final static long datacenterIdShift = sequenceBits + WORKER_ID_BITS;
     // 时间毫秒左移22位
-    private final static long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
+    private final static long timestampLeftShift = sequenceBits + WORKER_ID_BITS + datacenterIdBits;
 
     private final static long sequenceMask = -1L ^ (-1L << sequenceBits);
     /* 上次生产id时间戳 */
@@ -54,7 +58,7 @@ public class IdWorker {
 
     public IdWorker(){
         this.datacenterId = getDatacenterId(maxDatacenterId);
-        this.workerId = getMaxWorkerId(datacenterId, maxWorkerId);
+        this.workerId = getMaxWorkerId(datacenterId, MAX_WORKER_ID);
     }
     /**
      * @param workerId
@@ -63,8 +67,8 @@ public class IdWorker {
      *            序列号
      */
     public IdWorker(long workerId, long datacenterId) {
-        if (workerId > maxWorkerId || workerId < 0) {
-            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
+        if (workerId > MAX_WORKER_ID || workerId < 0) {
+            throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", MAX_WORKER_ID));
         }
         if (datacenterId > maxDatacenterId || datacenterId < 0) {
             throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
@@ -95,7 +99,7 @@ public class IdWorker {
         }
         lastTimestamp = timestamp;
         // ID偏移组合生成最终的ID，并返回ID
-        long nextId = ((timestamp - twepoch) << timestampLeftShift)
+        long nextId = ((timestamp - TWEPOCH) << timestampLeftShift)
                 | (datacenterId << datacenterIdShift)
                 | (workerId << workerIdShift) | sequence;
 

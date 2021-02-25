@@ -7,10 +7,15 @@ package com.niubaide.im.expection;
  */
 public class ImException extends RuntimeException{
 
-    //异常信息
+    /**
+     * 异常信息
+     */
     private String message;
 
-    //构造函数
+    /**
+     * 构造函数
+     * @param message
+     */
     public ImException(String message){
         super(message);
         this.message = message;

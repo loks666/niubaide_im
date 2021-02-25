@@ -1,15 +1,18 @@
 package com.niubaide.im.pojo.bean;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-@Data
+
 /**
  * @author 飞飞
  * @description 数据库用户对象
  * @date 2020/6/14 17:30
  */
+@Data
+@Accessors(chain = true)
 public class TbUser {
 
     /**
