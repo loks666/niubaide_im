@@ -40,7 +40,7 @@ public class WebsocketInitializer extends ChannelInitializer<SocketChannel> {
         // 第一个参数:  读空闲4秒
         // 第二个参数： 写空闲8秒
         // 第三个参数： 读写空闲12秒
-        pipeline.addLast(new IdleStateHandler(800, 1000, 60));
+        pipeline.addLast(new IdleStateHandler(4, 8, 12));
 
         pipeline.addLast(new HeartBeatHandler());
         pipeline.addLast(new ChatHandler());
