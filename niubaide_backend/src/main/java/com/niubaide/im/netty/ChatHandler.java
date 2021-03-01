@@ -65,8 +65,6 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
                     }
                 }
                 break;
-            case "SINGLE_SENDING":
-                break;
             // 将消息记录设置为已读
             case "RECEIVE":
                 chatRecordService.msgRead(msg.getChatRecord().getId());
@@ -76,8 +74,9 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
                 System.out.println("接收到心跳消息" + JSON.toJSONString(msg));
                 break;
             case "RELOAD_FRIEND":
-                break;
+            case "SINGLE_SENDING":
             default:
+                break;
         }
     }
 

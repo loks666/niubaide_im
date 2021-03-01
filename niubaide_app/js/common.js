@@ -1,5 +1,5 @@
 window.config = {
-    IP: '192.168.67.216',
+    IP: '81.68.219.235',
     // 服务器地址
     SERVER_URL: 'http://' + this.IP + ':8086',
     // NETTY地址
