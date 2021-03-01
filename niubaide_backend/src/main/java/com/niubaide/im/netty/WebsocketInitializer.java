@@ -7,6 +7,7 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 
 /**
  * @author 李翔
@@ -34,6 +35,14 @@ public class WebsocketInitializer extends ChannelInitializer<SocketChannel> {
         // 必须使用以ws后缀结尾的url才能访问
         pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
         // 添加自定义的Handler
+
+        // 增加心跳事件支持
+        // 第一个参数:  读空闲4秒
+        // 第二个参数： 写空闲8秒
+        // 第三个参数： 读写空闲12秒
+        pipeline.addLast(new IdleStateHandler(800, 1000, 60));
+
+        pipeline.addLast(new HeartBeatHandler());
         pipeline.addLast(new ChatHandler());
 
     }
