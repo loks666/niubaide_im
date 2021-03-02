@@ -231,7 +231,7 @@
 							CHAT.chat(JSON.stringify(message));
 							
 							// 定时发送心跳包
-							setInterval("CHAT.keepalive()", 1000000);
+							setInterval("CHAT.keepalive()", 100000);
 						};
 						
 						CHAT.socket.onclose = function() {
