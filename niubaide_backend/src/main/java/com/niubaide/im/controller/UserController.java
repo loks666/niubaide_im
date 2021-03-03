@@ -128,7 +128,7 @@ public class UserController {
             Assert.hasText(friendUsername, "好友姓名不能为空！");
             User result = userService.findByUserName(userid,friendUsername);
             if (result != null) {
-                return ServerResponse.success(ResponseCode.SUCCESS, "查询好友成功！");
+                return ServerResponse.success(result);
             }
             return ServerResponse.error(ResponseCode.SERVER_ERROR.getCode(), "添加好友失败！");
         } catch (Exception e) {
