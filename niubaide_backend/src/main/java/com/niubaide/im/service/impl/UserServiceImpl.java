@@ -119,8 +119,8 @@ public class UserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> implement
             String fileName = fileNameList[0];
             // 类型后缀名
             String ext = fileNameList[1];
-            // 缩略图
-            String picSmallUrl = fileName + "_150×150." + ext;
+            // 缩略图 150 * 150
+            String picSmallUrl = fileName + "."+ext;
             // 获取url前缀
             String perfix = env.getProperty("fdfs.httpurl");
             TbUser tbUser = tbUserMapper.selectById(userid);
