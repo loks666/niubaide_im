@@ -36,7 +36,7 @@
 </p>
 
 
-本篇NIUBAIDE.md面向开发者
+本篇README.md面向开发者
 
 ## 目录
 
@@ -152,7 +152,7 @@ niubaide_im
 │    └──  sql/nchat.sql #数据库执行文件
 │    └──  application.properties #项目配置文件
 ├── LICENSE.txt #Apache2.0协议文件
-├── NIUBAIDE.md #项目描述文档
+├── README.md #项目描述文档
 
 ```
 
@@ -174,7 +174,7 @@ src/main/resources/deploy.sh
 
 ### 贡献者
 
-请阅读**NIUBAIDE.md** 查阅为该项目做出贡献的开发者。
+请阅读**README.md** 查阅为该项目做出贡献的开发者。
 
 #### 如何参与开源项目
 
