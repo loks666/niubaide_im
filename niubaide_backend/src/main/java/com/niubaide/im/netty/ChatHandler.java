@@ -69,7 +69,6 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             case "RECEIVE":
                 chatRecordService.msgRead(msg.getChatRecord().getId());
                 break;
-
             case "KEEP_HEARTBEAT":
                 System.out.println("接收到心跳消息" + JSON.toJSONString(msg));
                 break;
@@ -88,7 +87,6 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx){
-        System.out.println("关闭通道");
         UserChannelMap.removeByChannelId(ctx.channel().id().asLongText());
         UserChannelMap.print();
     }

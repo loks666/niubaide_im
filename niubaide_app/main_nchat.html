@@ -144,8 +144,8 @@
 						'Content-Type': 'application/json'
 					},
 					success: function(data) {
-						
 						var html = '';
+						console.log(data.data)
 						if(data != null && data.length > 0) {
 							for(var i = 0; i < data.length; ++i) {
 								var friendHTML = friendreqTemplate.replace("#friendphoto#", data[i].picSmall)
