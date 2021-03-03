@@ -23,48 +23,72 @@ import java.net.NetworkInterface;
  * @author Polim
  */
 public class IdWorker {
+
     /**
      * 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
      */
     private final static long TWEPOCH = 1288834974657L;
-    // 机器标识位数
+
+    /**
+     * 机器标识位数
+     */
     private final static long WORKER_ID_BITS = 5L;
-    // 数据中心标识位数
-    private final static long datacenterIdBits = 5L;
+
+    /**
+     * 数据中心标识位数
+     */
+    private final static long DATACENTER_ID_BITS = 5L;
     /**
      * 机器ID最大值
      */
     private final static long MAX_WORKER_ID = -1L ^ (-1L << WORKER_ID_BITS);
-    // 数据中心ID最大值
-    private final static long maxDatacenterId = -1L ^ (-1L << datacenterIdBits);
-    // 毫秒内自增位
-    private final static long sequenceBits = 12L;
-    // 机器ID偏左移12位
-    private final static long workerIdShift = sequenceBits;
-    // 数据中心ID左移17位
-    private final static long datacenterIdShift = sequenceBits + WORKER_ID_BITS;
-    // 时间毫秒左移22位
-    private final static long timestampLeftShift = sequenceBits + WORKER_ID_BITS + datacenterIdBits;
 
-    private final static long sequenceMask = -1L ^ (-1L << sequenceBits);
-    /* 上次生产id时间戳 */
-    private static long lastTimestamp = -1L;
-    // 0，并发控制
+    /**
+     * 数据中心ID最大值
+     */
+    private final static long maxDatacenterId = -1L ^ (-1L << DATACENTER_ID_BITS);
+    /**
+     * 毫秒内自增位
+     */
+    private final static long SEQUENCEBITS = 12L;
+
+    /**
+     * 机器ID偏左移12位
+     */
+    private final static long WORKER_ID_SHIFT = SEQUENCEBITS;
+
+    /**
+     * 数据中心ID左移17位
+     */
+    private final static long DATACENTER_ID_SHIFT = SEQUENCEBITS + WORKER_ID_BITS;
+
+    /**
+     * 时间毫秒左移22位
+     */
+    private final static long TIMESTAMP_LEFT_SHIFT = SEQUENCEBITS + WORKER_ID_BITS + DATACENTER_ID_BITS;
+
+    private final static long SEQUENCE_MASK = -1L ^ (-1L << SEQUENCEBITS);
+    /**
+     * 上次生产id时间戳
+     */
+    private static long LAST_TIME_STAMP = -1L;
+    /**
+     * 0，并发控制
+     */
     private long sequence = 0L;
 
     private final long workerId;
-    // 数据标识id部分
+    /** 数据标识id部分 */
     private final long datacenterId;
 
-    public IdWorker(){
+    public IdWorker() {
         this.datacenterId = getDatacenterId(maxDatacenterId);
         this.workerId = getMaxWorkerId(datacenterId, MAX_WORKER_ID);
     }
+
     /**
-     * @param workerId
-     *            工作机器ID
-     * @param datacenterId
-     *            序列号
+     * @param workerId     工作机器ID
+     * @param datacenterId 序列号
      */
     public IdWorker(long workerId, long datacenterId) {
         if (workerId > MAX_WORKER_ID || workerId < 0) {
@@ -76,32 +100,33 @@ public class IdWorker {
         this.workerId = workerId;
         this.datacenterId = datacenterId;
     }
+
     /**
      * 获取下一个ID
      *
-     * @return
+     * @return String id
      */
     public synchronized String nextId() {
         long timestamp = timeGen();
-        if (timestamp < lastTimestamp) {
-            throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+        if (timestamp < LAST_TIME_STAMP) {
+            throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", LAST_TIME_STAMP - timestamp));
         }
 
-        if (lastTimestamp == timestamp) {
+        if (LAST_TIME_STAMP == timestamp) {
             // 当前毫秒内，则+1
-            sequence = (sequence + 1) & sequenceMask;
+            sequence = (sequence + 1) & SEQUENCE_MASK;
             if (sequence == 0) {
                 // 当前毫秒内计数满了，则等待下一秒
-                timestamp = tilNextMillis(lastTimestamp);
+                timestamp = tilNextMillis(LAST_TIME_STAMP);
             }
         } else {
             sequence = 0L;
         }
-        lastTimestamp = timestamp;
+        LAST_TIME_STAMP = timestamp;
         // ID偏移组合生成最终的ID，并返回ID
-        long nextId = ((timestamp - TWEPOCH) << timestampLeftShift)
-                | (datacenterId << datacenterIdShift)
-                | (workerId << workerIdShift) | sequence;
+        long nextId = ((timestamp - TWEPOCH) << TIMESTAMP_LEFT_SHIFT)
+                | (datacenterId << DATACENTER_ID_SHIFT)
+                | (workerId << WORKER_ID_SHIFT) | sequence;
 
         return Long.toString(nextId);
     }
@@ -128,14 +153,14 @@ public class IdWorker {
         mpid.append(datacenterId);
         String name = ManagementFactory.getRuntimeMXBean().getName();
         if (!name.isEmpty()) {
-         /*
-          * GET jvmPid
-          */
+            /*
+             * GET jvmPid
+             */
             mpid.append(name.split("@")[0]);
         }
-      /*
-       * MAC + PID 的 hashcode 获取16个低位
-       */
+        /*
+         * MAC + PID 的 hashcode 获取16个低位
+         */
         return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
     }
 

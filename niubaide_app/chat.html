@@ -181,7 +181,7 @@
 				var msg_list = document.getElementById("msg");
 				
 				// 加载服务器上的消息
-				mui.ajax(config.SERVER_URL + "/chatrecord/findByUserIdAndFriendId?userid=" + user.id + "&friendid=" + friendid, {
+				mui.ajax(config.SERVER_URL + "/chatrecord/findByUserIdAndFriendId?userid=" + user.id + "&friendId=" + friendid, {
 					data: {},
 					dataType: 'json', //服务器返回json格式数据
 					type: 'post', //HTTP请求类型

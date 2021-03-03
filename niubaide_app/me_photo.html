@@ -87,10 +87,10 @@
 
 									if(data.success) {
 										// 加载当前图片
-										myphoto.src = data.result.picNormal;
+										myphoto.src = data.data.picNormal;
 										// 更新用户信息
-										user.picNormal = data.result.picNormal;
-										user.picSmall = data.result.picSmall;
+										user.picNormal = data.data.picNormal;
+										user.picSmall = data.data.picSmall;
 										util.saveUser(user);
 
 										// 获取main_me的webview

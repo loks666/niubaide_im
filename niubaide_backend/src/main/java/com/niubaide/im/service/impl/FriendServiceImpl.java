@@ -37,6 +37,7 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, TbFriend> imple
     @Override
     public boolean sendRequest(TbFriendReq req) {
         isFriend(req);
+        req.setStatus(0);
         return reqService.saveOrUpdate(req);
     }
 
