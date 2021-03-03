@@ -56,19 +56,19 @@
 - [鸣谢](#鸣谢)
 
 ### 样例
-1. 登录
+1. 登录  
    ![avatar](images/login.jpg)
-2. 注册
+2. 注册  
    ![avatar](images/regist.jpg)
-3. 个人信息
+3. 个人信息  
    ![avatar](images/self.jpg)
-4. 二维码
+4. 二维码  
    ![avatar](images/qrCode.jpg)
-5. 通讯录
+5. 通讯录  
    ![avatar](images/list.jpg)
-6. 添加好友
+6. 添加好友  
    ![avatar](images/add.jpg)
-7. 操作好友请求
+7. 操作好友请求  
    ![avatar](images/send.jpg)
    
 ###### 开发前的配置要求
