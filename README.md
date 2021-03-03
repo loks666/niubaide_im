@@ -1,6 +1,6 @@
 # NiuBaiDe_IM
 
-牛掰的即时通讯(SpringBoot + Netty)
+牛掰的即时通讯(Uniapp + SpringBoot + Netty)
 
 <!-- PROJECT SHIELDS -->
 
@@ -157,8 +157,8 @@ niubaide_im
 ```
 
 ### 开发的架构
-
-SpringBoot-2.3.1.RELEASE + Netty-4.1.25.Final + Mybatis-Plus-3.3.2
+前端：Uni-app
+后端：SpringBoot-2.3.1.RELEASE + Netty-4.1.25.Final + Mybatis-Plus-3.3.2
 图片上传：FastDfs-6.0.6
 
 ### 部署
@@ -168,6 +168,7 @@ src/main/resources/deploy.sh
 ### 使用到的框架
 
 - [SpringBoot](https://spring.io/projects/spring-boot)
+- [Uni-app](https://uniapp.dcloud.io/)
 - [Netty](https://netty.io/)
 - [Mybatis-Plus](https://baomidou.com/)
 - [FastDfs](https://github.com/happyfish100/fastdfs)
