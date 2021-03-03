@@ -17,7 +17,7 @@
 <br />
 
 <p align="center">
-  <a href="https://github.com/shaojintian/Best_README_template/">
+  <a href="https://github.com/loks666/niubaide_im/">
     <img src="images/niubaide.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -55,12 +55,6 @@
 - [作者](#作者)
 - [鸣谢](#鸣谢)
 
-### 上手指南
-
-请将所有链接中的“shaojintian/Best_README_template”改为“your_github_name/your_repository”
-
-
-
 ###### 开发前的配置要求
 
 1. xxxxx x.x.x
@@ -72,7 +66,7 @@
 2. Clone the repo
 
 ```sh
-git clone https://github.com/shaojintian/Best_README_template.git
+git clone https://github.com/loks666/niubaide_im.git
 ```
 
 ### 文件目录说明
@@ -104,7 +98,7 @@ filetree
 
 ### 开发的架构
 
-请阅读[ARCHITECTURE.md](https://github.com/shaojintian/Best_README_template/blob/master/ARCHITECTURE.md) 查阅为该项目的架构。
+请阅读[ARCHITECTURE.md](https://github.com/loks666/niubaide_im/blob/master/ARCHITECTURE.md) 查阅为该项目的架构。
 
 ### 部署
 
@@ -147,7 +141,7 @@ xxx@xxxx
 
 ### 版权说明
 
-该项目签署了MIT 授权许可，详情请参阅 [LICENSE.txt](https://github.com/shaojintian/Best_README_template/blob/master/LICENSE.txt)
+该项目签署了MIT 授权许可，详情请参阅 [LICENSE.txt](https://github.com/loks666/niubaide_im/blob/master/LICENSE.txt)
 
 ### 鸣谢
 
@@ -160,17 +154,17 @@ xxx@xxxx
 - [xxxxxxxxxxxxxx](https://connoratherton.com/loaders)
 
 <!-- links -->
-[your-project-path]:shaojintian/Best_README_template
-[contributors-shield]: https://img.shields.io/github/contributors/shaojintian/Best_README_template.svg?style=flat-square
-[contributors-url]: https://github.com/shaojintian/Best_README_template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/shaojintian/Best_README_template.svg?style=flat-square
-[forks-url]: https://github.com/shaojintian/Best_README_template/network/members
-[stars-shield]: https://img.shields.io/github/stars/shaojintian/Best_README_template.svg?style=flat-square
-[stars-url]: https://github.com/shaojintian/Best_README_template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/shaojintian/Best_README_template.svg?style=flat-square
-[issues-url]: https://img.shields.io/github/issues/shaojintian/Best_README_template.svg
-[license-shield]: https://img.shields.io/github/license/shaojintian/Best_README_template.svg?style=flat-square
-[license-url]: https://github.com/shaojintian/Best_README_template/blob/master/LICENSE.txt
+[your-project-path]:loks666/niubaide_im
+[contributors-shield]: https://img.shields.io/github/contributors/loks666/niubaide_im.svg?style=flat-square
+[contributors-url]: https://github.com/loks666/niubaide_im/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/loks666/niubaide_im.svg?style=flat-square
+[forks-url]: https://github.com/loks666/niubaide_im/network/members
+[stars-shield]: https://img.shields.io/github/stars/loks666/niubaide_im.svg?style=flat-square
+[stars-url]: https://github.com/loks666/niubaide_im/stargazers
+[issues-shield]: https://img.shields.io/github/issues/loks666/niubaide_im.svg?style=flat-square
+[issues-url]: https://img.shields.io/github/issues/loks666/niubaide_im.svg
+[license-shield]: https://img.shields.io/github/license/loks666/niubaide_im.svg?style=flat-square
+[license-url]: https://github.com/loks666/niubaide_im/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/shaojintian
 
