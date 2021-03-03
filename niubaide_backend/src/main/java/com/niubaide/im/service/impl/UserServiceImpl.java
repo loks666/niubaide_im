@@ -98,6 +98,8 @@ public class UserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> implement
             // 拼接二维码生成路径
             String url = fastDFSClient.uploadFile(new File(qrCodePath));
             user.setQrcode(url);
+            user.setPicNormal(url);
+            user.setPicSmall(url);
             user.setNickname(user.getUsername());
             user.setCreatetime(new Date());
             return tbUserMapper.insert(user);
