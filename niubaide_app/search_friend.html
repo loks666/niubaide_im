@@ -46,10 +46,12 @@
 									url: "search_friend_result.html",
 									id: "search_friend_result",
 									extras: {
-										friend: data.result
-									}
+										friend: data.data,
+									},
 								});
+								console.log(friend)
 							}
+							
 							else {
 								mui.toast(data.message);
 							}
