@@ -1,4 +1,4 @@
-# Niubaide_IM
+# NiuBaiDe_IM
 
 牛掰的即时通讯(SpringBoot + Netty)
 
