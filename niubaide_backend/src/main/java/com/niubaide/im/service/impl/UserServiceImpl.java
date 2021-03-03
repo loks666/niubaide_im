@@ -124,8 +124,10 @@ public class UserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> implement
             // 获取url前缀
             String perfix = env.getProperty("fdfs.httpurl");
             TbUser tbUser = tbUserMapper.selectById(userid);
-            tbUser.setPicNormal(perfix + url);
-            tbUser.setPicSmall(perfix + picSmallUrl);
+            String picNormal = perfix + url;
+
+            tbUser.setPicNormal(picNormal.replaceAll(" ",""));
+            tbUser.setPicSmall((perfix + picSmallUrl).replaceAll(" ",""));
             int i = tbUserMapper.updateById(tbUser);
             if (i != 0) {
                 User user = new User();
@@ -158,7 +160,7 @@ public class UserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> implement
         List<TbUser> users = list(Wrappers.lambdaQuery(TbUser.class).eq(TbUser::getUsername, friendUsername));
         TbUser friend = users.get(0);
         User result = new User();
-        BeanUtils.copyProperties(friend,result);
+        BeanUtils.copyProperties(friend, result);
         return result;
     }
 
