@@ -1,8 +1,8 @@
 window.config = {
-    // 服务器地址
-    SERVER_URL: 'http://10.205.128.216:8086',
-    // NETTY地址
-    WS_URL: 'ws://10.205.128.216:5001/ws',
+    // 服务器地址 更改为本地项目启动地址
+    SERVER_URL: 'http://192.168.31.94:8086',
+    // NETTY地址  更改为本地项目启动地址
+    WS_URL: 'ws://192.168.31.94:5001/ws',
     // 默认小头像路径名
     DEFAULT_PIC_IMG: "/image/default_user_pic.png",
     // 默认大头像路径名
