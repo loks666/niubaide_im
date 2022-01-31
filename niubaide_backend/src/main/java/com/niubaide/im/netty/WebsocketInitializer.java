@@ -1,5 +1,6 @@
 package com.niubaide.im.netty;
 
+import com.niubaide.im.service.ChatRecordService;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -13,6 +14,12 @@ import io.netty.handler.timeout.IdleStateHandler;
  * @author 李翔
  */
 public class WebsocketInitializer extends ChannelInitializer<SocketChannel> {
+
+    private final ChatRecordService chatRecordService;
+
+    public WebsocketInitializer(ChatRecordService chatRecordService) {
+        this.chatRecordService = chatRecordService;
+    }
 
     /**
      * 初始化通道
@@ -43,7 +50,7 @@ public class WebsocketInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new IdleStateHandler(4, 8, 12));
 
         pipeline.addLast(new HeartBeatHandler());
-        pipeline.addLast(new ChatHandler());
+        pipeline.addLast(new ChatHandler(chatRecordService));
 
     }
 }

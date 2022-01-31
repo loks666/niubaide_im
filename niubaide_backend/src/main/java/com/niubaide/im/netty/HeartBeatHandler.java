@@ -32,9 +32,9 @@ public class HeartBeatHandler extends ChannelInboundHandlerAdapter {
                 System.out.println("写空闲...");
             }
             if (event.state() == IdleState.ALL_IDLE) {
-                System.out.println("关闭客户端通道");
+//                System.out.println("关闭客户端通道");
                 // 关闭通道，避免资源浪费
-                ctx.channel().close();
+//                ctx.channel().close();
             }
         }
     }

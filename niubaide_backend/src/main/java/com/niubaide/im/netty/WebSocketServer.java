@@ -1,10 +1,12 @@
 package com.niubaide.im.netty;
 
+import com.niubaide.im.service.ChatRecordService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class WebSocketServer implements Runnable{
+
+    @Autowired
+    private ChatRecordService chatRecordService;
 
     /**
      * 主线程池
@@ -44,7 +49,7 @@ public class WebSocketServer implements Runnable{
         server = new ServerBootstrap();
         server.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
-                .childHandler(new WebsocketInitializer());
+                .childHandler(new WebsocketInitializer(chatRecordService));
         future = server.bind(port);
         System.err.println("netty server - " + port + " 启动成功");
     }

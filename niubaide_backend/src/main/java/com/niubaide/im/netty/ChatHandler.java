@@ -10,7 +10,7 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
 
@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
  *
  * @author 李翔
  */
+@Slf4j
 public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     /**
@@ -28,8 +29,11 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
     private static ChannelGroup clients = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:MM");
 
-    @Autowired
-    private ChatRecordService chatRecordService;
+    private final ChatRecordService chatRecordService;
+
+    public ChatHandler(ChatRecordService chatRecordService) {
+        this.chatRecordService = chatRecordService;
+    }
 
     /**
      * 当Channel中有新的事件消息会自动调用
@@ -43,50 +47,67 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         System.out.println("接收到消息数据为：" + text);
 
         Message msg = JSON.parseObject(text, Message.class);
+        // 判断如果没有channel, 则添加
+        TbChatRecord chatRecord = msg.getChatRecord();
+        String msgText = chatRecord.getMessage();
+        String friendid = chatRecord.getFriendid();
+        String userid = chatRecord.getUserid();
+        UserChannelMap.put(userid, ctx.channel());
+
         switch (msg.getType()) {
             case "REGISTER":
                 // 2.2 聊天记录保存到数据库，标记消息的签收状态[未签收]
-                TbChatRecord chatRecord = msg.getChatRecord();
-                String msgText = chatRecord.getMessage();
-                String friendid = chatRecord.getFriendid();
-                String userid1 = chatRecord.getUserid();
                 // 保存到数据库，并标记为未签收
                 String messageId = chatRecordService.insert(chatRecord);
                 chatRecord.setId(messageId);
                 // 发送消息
-                Channel channel1 = UserChannelMap.get(friendid);
-                if(channel1 != null) {
-                    // 从ChannelGroup查找对应的额Channel是否存在
-                    Channel channel2 = clients.find(channel1.id());
-                    if(channel2 != null) {
-                        // 用户在线,发送消息到对应的通道
-                        System.out.println("发送消息到" + JSON.toJSONString(message));
-                        channel2.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(message)));
-                    }
-                }
+                instantSendMsg(msg, friendid);
                 break;
             // 将消息记录设置为已读
             case "RECEIVE":
-                chatRecordService.msgRead(msg.getChatRecord().getId());
+                chatRecordService.msgRead(chatRecord.getId());
                 break;
             case "KEEP_HEARTBEAT":
                 System.out.println("接收到心跳消息" + JSON.toJSONString(msg));
                 break;
             case "RELOAD_FRIEND":
             case "SINGLE_SENDING":
+                chatRecordService.insert(chatRecord);
+                instantSendMsg(msg, chatRecord.getFriendid());
             default:
                 break;
         }
     }
 
+    /**
+     * 即时发送消息
+     *
+     * @param message
+     * @param friendid
+     */
+    private void instantSendMsg(Message message, String friendid) {
+        Channel channel1 = UserChannelMap.get(friendid);
+        if (channel1 != null) {
+            // 从ChannelGroup查找对应的额Channel是否存在
+            Channel channel2 = clients.find(channel1.id());
+            if (channel2 != null) {
+                // 用户在线,发送消息到对应的通道
+                System.out.println("发送消息到" + JSON.toJSONString(message));
+                channel2.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(message)));
+            }
+        }
+    }
+
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause){
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        log.info("异常信息：" + cause.getMessage());
         UserChannelMap.removeByChannelId(ctx.channel().id().asLongText());
         ctx.channel().close();
     }
 
     @Override
-    public void handlerRemoved(ChannelHandlerContext ctx){
+    public void handlerRemoved(ChannelHandlerContext ctx) {
+        log.info("执行移除");
         UserChannelMap.removeByChannelId(ctx.channel().id().asLongText());
         UserChannelMap.print();
     }

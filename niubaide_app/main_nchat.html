@@ -225,7 +225,7 @@
 							
 							var user = util.getUser();
 							// 构建发给服务器的消息体
-							var message = util.getMessage(config.MSG_TYPE_CONN, user.id, null, null, null, null);
+							// var message = util.getMessage(config.MSG_TYPE_CONN, user.id, null, null, null, null);
 							// 发送消息
 							console.log("发送链接消息:" + message);
 							CHAT.chat(JSON.stringify(message));
@@ -327,8 +327,7 @@
 				var user = util.getUser();
 				// 加载未读的聊天记录
 				mui.ajax(config.SERVER_URL + "/chatrecord/findUnreadByUserid?userid=" + user.id , {
-					data: {
-					},
+					data: {},
 					dataType: 'json', //服务器返回json格式数据
 					type: 'post', //HTTP请求类型
 					timeout: 10000, //超时时间设置为10秒；
@@ -336,7 +335,7 @@
 						'Content-Type': 'application/json'
 					},
 					success: function(data) {
-						console.log("我的好友:" + JSON.stringify(data));
+						console.log("未读信息为:" + JSON.stringify(data));
 						// 将聊天记录保存到本地
 						
 						for(var i = 0; i < data.length; ++i) {
@@ -360,7 +359,7 @@
 							var contactList = plus.storage.getItem("contactList");
 							if(!util.isEmpty(contactList)) {
 								var friend = {};
-								contactList = JSON.parse(contactList);
+								contactList = JSON.parse(contactList)["data"];
 								for(var j = 0; j < contactList.length; j++) {
 									if(contactList[j].id == friendid) {
 										friend = contactList[j];
