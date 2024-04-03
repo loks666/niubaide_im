@@ -24,7 +24,7 @@ public class ChatRecordServiceImpl extends ServiceImpl<TbChatRecordMapper, TbCha
         chatRecord.setHasRead(0);
         chatRecord.setCreatetime(new Date());
         chatRecord.setHasDelete(0);
-        insert(chatRecord);
+        baseMapper.insert(chatRecord);
         return chatRecord.getId();
     }
 
@@ -37,9 +37,9 @@ public class ChatRecordServiceImpl extends ServiceImpl<TbChatRecordMapper, TbCha
     }
 
     @Override
-    public List<TbChatRecord> findUnreadByUserid(String id) {
+    public List<TbChatRecord> findUnreadByUserid(String userId) {
         TbChatRecord tb = new TbChatRecord();
-        tb.setId(id);
+        tb.setUserid(userId);
         tb.setHasRead(0);
         return list(Wrappers.lambdaQuery(tb));
     }

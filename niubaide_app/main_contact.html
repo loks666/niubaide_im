@@ -58,11 +58,11 @@
 				<div class="mui-indexed-list-inner">
 					<div class="mui-indexed-list-empty-alert">没有数据</div>
 					<ul id="ul" class="mui-table-view">
-						<!--<li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>
+						<!-- <li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>
 						<li data-tags="AKeSu" class="mui-media mui-table-view-cell mui-indexed-list-item">
 							<img class="mui-media-object mui-pull-left" src="image/default_user_pic.png" style="max-width: 35px;height:35px;padding: 8px 10px;"/>
 							<div class="mui-media-body" style="line-height: 35px;">阿拉山</div>
-						</li>-->
+						</li> -->
 					</ul>
 				</div>
 			</div>
@@ -145,7 +145,7 @@
 				var contactListStr = plus.storage.getItem("contactList");
 				var friendList = [];
 				if(!util.isEmpty(contactListStr)) {
-					friendList = JSON.parse(contactListStr);
+					friendList = JSON.parse(contactListStr)["data"];
 					
 					for(var i = 0; i < friendList.length; ++i) {
 						var friend = friendList[i];
@@ -159,7 +159,7 @@
 						// 将好友放入二维数组
 						data[num].push(friend);
 					}
-					
+
 					var html = '';
 					for(var i = 0; i < data.length; ++i) {
 						var arr = data[i];
